@@ -1,6 +1,8 @@
 import Layout from './hoc/Layout';
 
-const routes = <p>Routes will go here.</p>;
+import './App.css'
+
+const routes = null;
 
 const App = () => {
 	return (
