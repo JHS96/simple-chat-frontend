@@ -5,12 +5,8 @@ import Toolbar from '../components/Navigation/Toolbar/Toolbar';
 const Layout = props => {
 	let toolbar = <Toolbar />;
 
-	if (
-		window.location.href === 'http://localhost:3000/' ||
-		window.location.href === 'http://localhost:3000/signup' ||
-		window.location.href === 'http://localhost:3000/login'
-	) {
-		toolbar = null;
+	if (!props.isAuth) {
+		toolbar = null; // Toolbar will be displayed for authenticated users only
 	}
 
 	return (

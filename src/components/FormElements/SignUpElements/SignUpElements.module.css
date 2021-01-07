@@ -1,0 +1,27 @@
+.AvatarPreview {
+	padding: 3px;
+	width: 125px;
+	height: 125px;
+	border-radius: 50%;
+	border: 1px solid var(--pale-grey);
+	box-shadow: 1px 1px 5px var(--pale-grey);
+	object-fit: cover;
+}
+
+#UploadImgLbl {
+	margin-top: 0.25rem;
+	font-size: small;
+}
+
+.Avatar {
+	width: 90%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.FileInput {
+	width: 100%;
+	margin: 0.5rem 0;
+	font-size: large;
+}

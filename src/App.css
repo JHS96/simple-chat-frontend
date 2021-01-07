@@ -8,9 +8,72 @@
 	--primary-color: #091834;
 	--secondary-color: #dee9fc;
 	--highlight-color: #1258dc;
-	--dark-color: #0A337F;
+	--dark-color: #0a337f;
+	--light-color: #6395f2;
+	--error-color: #ffe9e9;
+	--error-highlight-color: #ff5151;
+	--pale-grey: #e9e9e9;
+	--warning-color: #fc7307;
 }
 
 body {
 	background: var(--secondary-color);
+}
+
+input {
+	width: 90%;
+	margin: 0.5rem;
+	padding: 0.25rem;
+	border: none;
+	border-radius: 3px;
+	outline: none;
+	font-size: 20px;
+	background: var(--pale-grey);
+}
+
+.inputError {
+	border: 1px solid var(--error-highlight-color);
+	border-radius: 3px;
+	box-shadow: 1px 1px 5px var(--error-highlight-color);
+	background-color: var(--error-color);
+}
+
+.inputLabel {
+	width: 90%;
+	font-size: small;
+	color: var(--highlight-color);
+}
+
+input[type='submit'] {
+	cursor: pointer;
+}
+
+.btnDark {
+	background: var(--primary-color);
+	color: #fff;
+}
+
+.btnHighlight {
+	background: var(--highlight-color);
+	color: #fff;
+}
+
+.btnWarning {
+	background-color: var(--warning-color);
+	color: var(--highlight-color);
+}
+
+.btnDanger {
+	background: #ff0000;
+	color: #fff;
+}
+
+.btnLarge {
+	width: 70%;
+	height: 3.5rem;
+	font-size: 2.5rem;
+}
+
+.btnSmall {
+	width: 8%
 }

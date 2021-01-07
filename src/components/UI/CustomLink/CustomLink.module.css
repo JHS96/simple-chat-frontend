@@ -1,0 +1,10 @@
+.CustomLink {
+	color: var(--highlight-color);
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.Danger {
+  font-weight: normal;
+  color: red;
+}
