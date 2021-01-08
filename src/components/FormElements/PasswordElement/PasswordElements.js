@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import * as validators from '../../../util/validators';
-import CustomLink from '../../UI/CustomLink/CustomLink';
 
 const PasswordElements = props => {
 	const [visibleLabels, setVisibliLabels] = useState(false);
@@ -46,13 +45,6 @@ const PasswordElements = props => {
 				onBlur={passwordChangeHandler}
 				value={props.val}
 			/>
-			{props.mode === 'log in' ? (
-				<CustomLink
-					danger={true}
-					text='Forgot your password?'
-					clicked={props.clicked}
-				/>
-			) : null}
 		</React.Fragment>
 	);
 };

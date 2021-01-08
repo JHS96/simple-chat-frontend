@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
 import Logo from '../../components/Logo/Logo';
-import SignUpElements from '../../components/FormElements/SignUpElements/SignUpElements';
+import AvatarElements from '../../components/FormElements/SignUpElements/AvatarElements';
+import UsernameElements from '../../components/FormElements/UsernameElements/UsernameElements';
 import EmailElements from '../../components/FormElements/EmailElements/EmailElements';
 import PasswordElements from '../../components/FormElements/PasswordElement/PasswordElements';
 import Button from '../../components/UI/Button/Button';
@@ -52,7 +53,7 @@ const Signup = () => {
 		if (mode === 'log in') {
 			return (
 				<Button
-					btnClass='btnHighlight btnLarge'
+					btnClass='btnDefault btnLarge'
 					value='Log In'
 					clicked={event => {
 						event.preventDefault();
@@ -63,7 +64,7 @@ const Signup = () => {
 		} else if (mode === 'sign up') {
 			return (
 				<Button
-					btnClass='btnHighlight btnLarge'
+					btnClass='btnDefault btnLarge'
 					value='Sign Up'
 					clicked={event => {
 						event.preventDefault();
@@ -97,16 +98,20 @@ const Signup = () => {
 					<ModeSelector />
 					<hr />
 					{mode === 'sign up' && (
-						<SignUpElements
-							imgValid={isAvatarImgValid}
-							avatarImg={avatarImg}
-							setAvImg={setAvatarImg}
-							setAvImgValid={setIsAvatarImgValid}
-							setName={setUserName}
-							setNameValid={setIsUserNameValid}
-							nameValid={isUserNameValid}
-							name={userName}
-						/>
+						<React.Fragment>
+							<AvatarElements
+								imgValid={isAvatarImgValid}
+								avatarImg={avatarImg}
+								setAvImg={setAvatarImg}
+								setAvImgValid={setIsAvatarImgValid}
+							/>
+							<UsernameElements
+								setName={setUserName}
+								setNameValid={setIsUserNameValid}
+								nameValid={isUserNameValid}
+								name={userName}
+							/>
+						</React.Fragment>
 					)}
 					<EmailElements
 						setMail={setEmail}
@@ -122,6 +127,13 @@ const Signup = () => {
 							val={password}
 							mode={mode}
 							clicked={() => setMode('reset password')}
+						/>
+					)}
+					{mode === 'log in' && (
+						<CustomLink
+							danger={true}
+							text='Forgot your password?'
+							clicked={() => setMode(() => 'reset password')}
 						/>
 					)}
 					<SubmitButton />

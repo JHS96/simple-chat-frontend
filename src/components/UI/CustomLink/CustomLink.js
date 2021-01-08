@@ -1,11 +1,11 @@
 import * as styles from './CustomLink.module.css';
 
 const CustomLink = props => {
-  let classes = '';
+	let classes = '';
 
-		if (props.danger) {
-      classes = styles.CustomLink + ' ' + styles.Danger;
-		} else classes = styles.CustomLink
+	if (props.danger) {
+		classes = styles.CustomLink + ' ' + styles.Danger;
+	} else classes = styles.CustomLink;
 
 	return (
 		<p className={classes} onClick={props.clicked}>

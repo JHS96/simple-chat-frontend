@@ -53,9 +53,17 @@ input[type='submit'] {
 	color: #fff;
 }
 
-.btnHighlight {
+.btnDark:hover {
+	background: var(--highlight-color);
+}
+
+.btnDefault {
 	background: var(--highlight-color);
 	color: #fff;
+}
+
+.btnDefault:hover {
+	background: var(--dark-color);
 }
 
 .btnWarning {
@@ -64,8 +72,12 @@ input[type='submit'] {
 }
 
 .btnDanger {
-	background: #ff0000;
+	background: #be0404d2;
 	color: #fff;
+}
+
+.btnDanger:hover {
+	background: #ff0000;
 }
 
 .btnLarge {
@@ -75,5 +87,5 @@ input[type='submit'] {
 }
 
 .btnSmall {
-	width: 8%
+	width: 8%;
 }
