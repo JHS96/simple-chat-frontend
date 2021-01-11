@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 
 import defaultAvatar from '../../../assets/images/default-avatar.png';
 import Button from '../../UI/Button/Button';
+import * as validators from '../../../util/validators';
 
 import styles from './AvatarElements.module.css';
 
 const SignUpElements = props => {
 	const [avatarSelector, setAvatarSelector] = useState();
 	const [avatarPreview, setAvatarPreview] = useState();
+	const maxImgSize = 4 * 1024 * 1024;
 
 	// Similar to ComponentDidMount, useEffect will execute once render cycle is completed, in this case
 	// to setAvatarSelector & setAvatarPreview states
@@ -27,10 +29,7 @@ const SignUpElements = props => {
 		if (
 			// If file was chosen, & is 4Mb or less, & is .png/.jpg/.jpeg it is valid
 			file &&
-			file.size <= 4 * 1024 * 1024 &&
-			(file.type === 'image/png' ||
-				file.type === 'image/jpg' ||
-				file.type === 'image/jpeg')
+			validators.isValidImg(maxImgSize, file.size, file.type)
 		) {
 			props.setAvImgValid(() => true);
 			const fileReader = new FileReader();

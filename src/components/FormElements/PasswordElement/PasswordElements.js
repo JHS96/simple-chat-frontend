@@ -7,8 +7,8 @@ const PasswordElements = props => {
 
 	const passwordChangeHandler = event => {
 		const enteredPassword = event.target.value;
-		const passwordMinLength = 6;
-		const passwordMaxLength = 32;
+		const passwordMinLength = props.pwMinLng;
+		const passwordMaxLength = props.pwMaxLng;
 		props.setPw(enteredPassword);
 		// onBlur() check that passord length is acceptable. Actual validation to be done by backend
 		if (event.type === 'blur') {

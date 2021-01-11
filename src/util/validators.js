@@ -43,3 +43,48 @@ export const maxLengthExceeded = (value, maxLng) => {
 	}
 	return false;
 };
+
+export const isValidImg = (maxSize, fileSize, fileType) => {
+	if (
+		fileSize <= maxSize &&
+		(fileType === 'image/png' ||
+			fileType === 'image/jpg' ||
+			fileType === 'image/jpeg')
+	) {
+		return true;
+	} else return false;
+};
+
+export const isFormValid = (
+	mode,
+	avatarImgValid,
+	userName,
+	nameMinLng,
+	nameMaxLng,
+	email,
+	password,
+	pwMinLng,
+	pwMaxLng
+) => {
+	if (mode === 'log in') {
+		if (isValidEmail(email) && isValidLength(password, pwMinLng, pwMaxLng)) {
+			return true;
+		}
+	}
+	if (mode === 'sign up') {
+		if (
+			avatarImgValid &&
+			isValidString(userName, nameMinLng, nameMaxLng) &&
+			isValidEmail(email) &&
+			isValidLength(password, pwMinLng, pwMaxLng)
+		) {
+			return true;
+		}
+	}
+	if (mode === 'reset password') {
+		if (isValidEmail(email)) {
+			return true;
+		}
+	}
+	return false;
+};

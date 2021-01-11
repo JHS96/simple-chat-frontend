@@ -40,11 +40,16 @@ input {
 
 .inputLabel {
 	width: 90%;
+	margin-bottom: -0.25rem;
 	font-size: small;
 	color: var(--highlight-color);
 }
 
 input[type='submit'] {
+	border-radius: 5px;
+}
+
+input[type='submit']:not(.btnDisabled) {
 	cursor: pointer;
 }
 
@@ -78,6 +83,12 @@ input[type='submit'] {
 
 .btnDanger:hover {
 	background: #ff0000;
+}
+
+.btnDisabled {
+	background: var(--pale-grey);
+	color: #bbb;
+	cursor: not-allowed;
 }
 
 .btnLarge {

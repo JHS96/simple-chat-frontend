@@ -7,8 +7,8 @@ const UsernameElements = props => {
 
 	const userNameChangeHandler = event => {
 		const name = event.target.value;
-		const userNameMinLength = 3;
-		const userNameMaxLength = 15;
+		const userNameMinLength = props.nameMinLng;
+		const userNameMaxLength = props.nameMaxLng;
 		props.setName(() => name);
 		// onBlur() event, check the validity of the entire entered string (& return to prevent further code execution)
 		if (event.type === 'blur') {
