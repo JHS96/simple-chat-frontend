@@ -13,7 +13,7 @@ const PasswordElements = props => {
 		props.setPw(enteredPassword);
 		// onBlur() check that passord length is acceptable. Actual validation to be done by backend
 		if (event.type === 'blur') {
-			return props.setPwAcceptableLng(() =>
+			return props.setPwAcceptableLng(
 				validators.isValidLength(
 					enteredPassword,
 					passwordMinLength,
@@ -23,10 +23,10 @@ const PasswordElements = props => {
 		}
 		// Remove inputError class when password reaches min length. Add inputError class if password exceeds max length
 		if (validators.isMinLength(enteredPassword, passwordMinLength)) {
-			props.setPwAcceptableLng(() => true);
+			props.setPwAcceptableLng(true);
 		}
 		if (validators.maxLengthExceeded(enteredPassword, passwordMaxLength)) {
-			props.setPwAcceptableLng(() => false);
+			props.setPwAcceptableLng(false);
 		}
 	};
 
@@ -40,7 +40,7 @@ const PasswordElements = props => {
 				id='password'
 				placeholder='Password'
 				onChange={event => {
-					setVisibliLabels(() => true);
+					setVisibliLabels(true);
 					passwordChangeHandler(event);
 				}}
 				onBlur={passwordChangeHandler}

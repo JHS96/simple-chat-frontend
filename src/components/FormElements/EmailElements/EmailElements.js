@@ -8,12 +8,12 @@ const EmailElements = props => {
 
 	const emailChangeHandler = event => {
 		const input = event.target.value;
-		props.setMail(() => input);
+		props.setMail(input);
 		// setIsEmailValid to true to remove inputError class when user starts typing
-		props.setMailValid(() => true);
+		props.setMailValid(true);
 		// onBlur() check email validity
 		if (event.type === 'blur') {
-			props.setMailValid(() => validators.isValidEmail(input));
+			props.setMailValid(validators.isValidEmail(input));
 		}
 	};
 
@@ -29,7 +29,7 @@ const EmailElements = props => {
 				id='email'
 				placeholder='Email address'
 				onChange={event => {
-					setVisibleLabels(() => true);
+					setVisibleLabels(true);
 					emailChangeHandler(event);
 				}}
 				onBlur={emailChangeHandler}

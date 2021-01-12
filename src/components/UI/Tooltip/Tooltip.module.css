@@ -6,7 +6,8 @@
 
 .Tooltip .TooltipText {
 	visibility: hidden;
-  width: 350px;
+	width: 350px;
+	font-size: small;
 	background: var(--highlight-color);
 	color: #fff;
 	text-align: center;

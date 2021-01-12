@@ -163,7 +163,7 @@ const Signup = () => {
 						<CustomLink
 							danger={true}
 							text='Forgot your password?'
-							clicked={() => setMode(() => 'reset password')}
+							clicked={() => setMode('reset password')}
 						/>
 					)}
 					<SubmitButton />

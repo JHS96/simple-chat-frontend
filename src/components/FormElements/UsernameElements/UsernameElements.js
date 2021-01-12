@@ -10,10 +10,10 @@ const UsernameElements = props => {
 		const name = event.target.value;
 		const userNameMinLength = props.nameMinLng;
 		const userNameMaxLength = props.nameMaxLng;
-		props.setName(() => name);
+		props.setName(name);
 		// onBlur() event, check the validity of the entire entered string (& return to prevent further code execution)
 		if (event.type === 'blur') {
-			return props.setNameValid(() =>
+			return props.setNameValid(
 				validators.isValidString(
 					event.target.value,
 					userNameMinLength,
@@ -23,12 +23,10 @@ const UsernameElements = props => {
 		}
 		// onChange() event, if name is at least 1 character but not yet min length, check validity of last typed character
 		if (name.length > 0 && !validators.isMinLength(name, userNameMinLength)) {
-			props.setNameValid(() =>
-				validators.isValidCharacters(name[name.length - 1])
-			);
+			props.setNameValid(validators.isValidCharacters(name[name.length - 1]));
 		} else {
 			// Else if name is min length or greater, check validity of entire name string
-			props.setNameValid(() =>
+			props.setNameValid(
 				validators.isValidString(
 					event.target.value,
 					userNameMinLength,
@@ -49,14 +47,14 @@ const UsernameElements = props => {
 				placeholder='Username'
 				onChange={event => {
 					userNameChangeHandler(event);
-					setVisibleLabels(() => true);
+					setVisibleLabels(true);
 				}}
 				onBlur={userNameChangeHandler}
 				value={props.name}
 			/>
 			<Tooltip
 				visible={!props.nameValid}
-				text='Username must be at least 3 characters, and no more than 15 characters long. Acceptable characters: A-Z, a-z, 0-9, space, - , _  (Spaces at beginning/end of username will be ignored.)'
+				text='Must be 3 to 15 characters. Valid characters: A-Z, a-z, 0-9, space, - , _  (Spaces at beginning/end will be ignored.)'
 			/>
 		</React.Fragment>
 	);
