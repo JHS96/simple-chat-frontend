@@ -1,4 +1,4 @@
-import * as styles from './CustomLink.module.css';
+import styles from './CustomLink.module.css';
 
 const CustomLink = props => {
 	let classes = '';

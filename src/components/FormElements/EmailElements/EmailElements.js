@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import Tooltip from '../../UI/Tooltip/Tooltip';
 import * as validators from '../../../util/validators';
 
 const EmailElements = props => {
@@ -33,6 +34,10 @@ const EmailElements = props => {
 				}}
 				onBlur={emailChangeHandler}
 				value={props.val}
+			/>
+			<Tooltip
+				visible={!props.mailIsValid}
+				text='Please enter a valid email address, eg. name@example.com'
 			/>
 		</React.Fragment>
 	);

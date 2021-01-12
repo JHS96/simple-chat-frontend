@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import Tooltip from '../../UI/Tooltip/Tooltip';
 import * as validators from '../../../util/validators';
 
 const UsernameElements = props => {
@@ -52,6 +53,10 @@ const UsernameElements = props => {
 				}}
 				onBlur={userNameChangeHandler}
 				value={props.name}
+			/>
+			<Tooltip
+				visible={!props.nameValid}
+				text='Username must be at least 3 characters, and no more than 15 characters long. Acceptable characters: A-Z, a-z, 0-9, space, - , _  (Spaces at beginning/end of username will be ignored.)'
 			/>
 		</React.Fragment>
 	);

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import defaultAvatar from '../../../assets/images/default-avatar.png';
 import Button from '../../UI/Button/Button';
+import Tooltip from '../../UI/Tooltip/Tooltip';
 import * as validators from '../../../util/validators';
 
 import styles from './AvatarElements.module.css';
@@ -10,6 +11,7 @@ const SignUpElements = props => {
 	const [avatarSelector, setAvatarSelector] = useState();
 	const [avatarPreview, setAvatarPreview] = useState();
 	const maxImgSize = 4 * 1024 * 1024;
+	const errorMsg = 'Allowed images: .png, .jpg, .jpeg - Max 4Mb';
 
 	// Similar to ComponentDidMount, useEffect will execute once render cycle is completed, in this case
 	// to setAvatarSelector & setAvatarPreview states
@@ -81,6 +83,7 @@ const SignUpElements = props => {
 					/>
 				)}
 			</div>
+			<Tooltip visible={!props.imgValid} text={errorMsg} />
 			<hr />
 		</React.Fragment>
 	);

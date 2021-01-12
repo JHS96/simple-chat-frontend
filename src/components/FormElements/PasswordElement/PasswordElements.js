@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import Tooltip from '../../UI/Tooltip/Tooltip';
 import * as validators from '../../../util/validators';
 
 const PasswordElements = props => {
@@ -44,6 +45,10 @@ const PasswordElements = props => {
 				}}
 				onBlur={passwordChangeHandler}
 				value={props.val}
+			/>
+			<Tooltip
+				visible={!props.acceptableLng}
+				text='Password must be at least 6 characters, and no more than 32 characters long.'
 			/>
 		</React.Fragment>
 	);
