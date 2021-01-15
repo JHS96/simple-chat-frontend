@@ -4,7 +4,7 @@ import Tooltip from '../../UI/Tooltip/Tooltip';
 import * as validators from '../../../util/validators';
 
 const EmailElements = props => {
-	const [visibleLabels, setVisibleLabels] = useState(false);
+	const [visibleLabel, setVisibleLabel] = useState(false);
 
 	const emailChangeHandler = event => {
 		const input = event.target.value;
@@ -20,7 +20,7 @@ const EmailElements = props => {
 	return (
 		<React.Fragment>
 			<label className='inputLabel'>
-				{visibleLabels ? 'Email Address' : null}
+				{visibleLabel ? 'Email Address' : null}
 			</label>
 			<input
 				className={!props.mailIsValid ? 'inputError' : null}
@@ -29,13 +29,19 @@ const EmailElements = props => {
 				id='email'
 				placeholder='Email address'
 				onChange={event => {
-					setVisibleLabels(true);
+					setVisibleLabel(true);
 					emailChangeHandler(event);
 				}}
 				onBlur={emailChangeHandler}
 				value={props.val}
 			/>
 			<Tooltip
+				cssForContent={[
+					'Content-Wide--Arrow-Top-Center',
+					'Text-Centered',
+					'Text-Small',
+					'Text-White'
+				]}
 				visible={!props.mailIsValid}
 				text='Please enter a valid email address, eg. name@example.com'
 			/>

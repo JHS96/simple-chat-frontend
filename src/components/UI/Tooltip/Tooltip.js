@@ -1,18 +1,36 @@
 import styles from './Tooltip.module.css';
 
-const Tooltip = props => (
+const Tooltip = props => {
+	// Add classes to the outer div based on props.cssTooltip (array)
+	const tooltipClasses = [styles.Tooltip];
+	if (props.cssForTooltip) {
+		for (const cssClass of props.cssForTooltip) {
+			tooltipClasses.push(styles[cssClass]);
+		}
+	}
+
+	// Set visibility/invisibility based on props.visible
+	const contentClasses = [];
+	if (props.visible) {
+		contentClasses.push(styles.TooltipVisible);
+	}
+	// Add classes to the inner (Content) span based on props.cssContent (array)
+	if (props.cssForContent) {
+		for (const cssClass of props.cssForContent) {
+			contentClasses.push(styles[cssClass]);
+		}
+	}
+
 	// Tooltip can also be used as a context/dropdown menu as it accepts props.children (menu items)
-	<div className={styles.Tooltip}>
-		{props.children}
-		<span
-			className={
-				props.visible
-					? `${styles.TooltipText} ${styles.TooltipVisible}`
-					: styles.TooltipText
-			}>
-			{props.text}
-		</span>
-	</div>
-);
+	return (
+		<div className={tooltipClasses.join(' ')}>
+			{props.optionalElement}
+			<span className={contentClasses.join(' ')}>
+				{props.text}
+				{props.children}
+			</span>
+		</div>
+	);
+};
 
 export default Tooltip;

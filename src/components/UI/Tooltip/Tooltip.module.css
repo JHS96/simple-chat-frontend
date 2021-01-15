@@ -1,27 +1,42 @@
 .Tooltip {
 	position: relative;
 	display: inline-block;
-  cursor: default;
+	cursor: default;
 }
 
-.Tooltip .TooltipText {
-	visibility: hidden;
-	width: 350px;
-	font-size: small;
-	background: var(--highlight-color);
-	color: #fff;
-	text-align: center;
-	padding: 5px 0;
-	border-radius: 6px;
-	position: absolute;
+.Tooltip .Content-Wide--Arrow-Top-Center,
+.Tooltip .Content-Narrow--Arrow-Top-Center,
+.Tooltip .Content-Wide--Arrow-Top-Left,
+.Tooltip .Content-Narrow--Arrow-Top-Left,
+.Tooltip .Content-Wide--Arrow-Top-Right,
+.Tooltip .Content-Narrow--Arrow-Top-Right {
 	top: 100%;
 	left: 50%;
-	margin-left: -175px; /* negative half of the width above */
+	visibility: hidden;
+	padding: 5px;
+	background: var(--highlight-color);
+	border-radius: 6px;
+	position: absolute;
 	z-index: 1;
 }
 
-.Tooltip .TooltipText::after {
-	content: ' ';
+/***********************************************/
+/* Styles for tooltip with arrow at top center */
+/***********************************************/
+.Tooltip .Content-Wide--Arrow-Top-Center {
+	width: 350px;
+	margin-left: -175px; /* negative half of the width above */
+}
+
+.Tooltip .Content-Narrow--Arrow-Top-Center {
+	width: 120px;
+	margin-left: -60px; /* negative half of the width above */
+}
+
+/* Tooltip Arrow - Top-Center */
+.Tooltip .Content-Wide--Arrow-Top-Center::after,
+.Tooltip .Content-Narrow--Arrow-Top-Center::after {
+	content: '';
 	position: absolute;
 	bottom: 100%; /* At top of tooltip */
 	left: 50%;
@@ -31,6 +46,100 @@
 	border-color: transparent transparent var(--highlight-color) transparent;
 }
 
+/*******************************************/
+/* Styles for tooltip with arrow top left */
+/*******************************************/
+.Tooltip .Content-Wide--Arrow-Top-Left {
+	width: 350px;
+	margin-left: 0;
+}
+
+.Tooltip .Content-Narrow--Arrow-Top-Left {
+	width: 120px;
+	margin-left: 0;
+}
+
+/* Tooltip Arrow - Top-Left */
+.Tooltip .Content-Wide--Arrow-Top-Left::after,
+.Tooltip .Content-Narrow--Arrow-Top-Left::after {
+	content: '';
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent transparent transparent var(--highlight-color);
+	top: -5px;
+}
+
+.Tooltip .Content-Wide--Arrow-Top-Left::after {
+	right: 340px;
+}
+
+.Tooltip .Content-Narrow--Arrow-Top-Left::after {
+	right: 110px;
+}
+
+/******************************************/
+/* Styles for tooltip with arrow top right */
+/******************************************/
+.Tooltip .Content-Wide--Arrow-Top-Right {
+	width: 350px;
+	margin-left: -350px;
+}
+
+.Tooltip .Content-Narrow--Arrow-Top-Right {
+	width: 120px;
+	margin-left: -120px;
+}
+
+.Tooltip .Content-Wide--Arrow-Top-Right:after,
+.Tooltip .Content-Narrow--Arrow-Top-Right:after {
+	content: '';
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent var(--highlight-color) transparent transparent;
+	right: 0;
+	top: -5px;
+}
+
+/**********************/
+/* Tooltip Visibility */
+/**********************/
 .Tooltip .TooltipVisible {
 	visibility: visible;
+}
+
+/*****************/
+/* Shared Styles */
+/*****************/
+.Text-Left-Aligned {
+	text-align: left;
+}
+
+.Text-Centered {
+	text-align: center;
+}
+
+.Text-Small {
+	font-size: small;
+}
+
+.Text-Red {
+	color: red;
+}
+
+.Text-White {
+	color: #fff;
+}
+
+.Text-Bold {
+	font-weight: bold;
+}
+
+.Text-Not-Bold {
+	font-weight: normal;
 }

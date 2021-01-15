@@ -4,7 +4,7 @@ import Tooltip from '../../UI/Tooltip/Tooltip';
 import * as validators from '../../../util/validators';
 
 const UsernameElements = props => {
-	const [visibleLabels, setVisibleLabels] = useState();
+	const [visibleLabel, setVisibleLabel] = useState();
 
 	const userNameChangeHandler = event => {
 		const name = event.target.value;
@@ -38,7 +38,7 @@ const UsernameElements = props => {
 
 	return (
 		<React.Fragment>
-			<label className='inputLabel'>{visibleLabels ? 'Username' : null}</label>
+			<label className='inputLabel'>{visibleLabel ? 'Username' : null}</label>
 			<input
 				className={!props.nameValid ? 'inputError' : null}
 				type='text'
@@ -47,12 +47,18 @@ const UsernameElements = props => {
 				placeholder='Username'
 				onChange={event => {
 					userNameChangeHandler(event);
-					setVisibleLabels(true);
+					setVisibleLabel(true);
 				}}
 				onBlur={userNameChangeHandler}
 				value={props.name}
 			/>
 			<Tooltip
+				cssForContent={[
+					'Content-Wide--Arrow-Top-Center',
+					'Text-Centered',
+					'Text-Small',
+					'Text-White'
+				]}
 				visible={!props.nameValid}
 				text='Must be 3 to 15 characters. Valid characters: A-Z, a-z, 0-9, space, - , _  (Spaces at beginning/end will be ignored.)'
 			/>

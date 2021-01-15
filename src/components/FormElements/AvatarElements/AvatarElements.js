@@ -77,13 +77,22 @@ const SignUpElements = props => {
 				/>
 				{props.avatarImg && (
 					<Button
-						btnClass='btnSmall btnDanger'
+						cssForButton={['Btn-Small', 'Btn-Danger']}
 						value='X'
 						clicked={clearAvatarHandler}
 					/>
 				)}
 			</div>
-			<Tooltip visible={!props.imgValid} text={errorMsg} />
+			<Tooltip
+				cssForContent={[
+					'Content-Wide--Arrow-Top-Center',
+					'Text-Centered',
+					'Text-Small',
+					'Text-White'
+				]}
+				visible={!props.imgValid}
+				text={errorMsg}
+			/>
 			<hr />
 		</React.Fragment>
 	);

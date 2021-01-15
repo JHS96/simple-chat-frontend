@@ -1,14 +1,16 @@
 import styles from './CustomLink.module.css';
 
 const CustomLink = props => {
-	let classes = '';
+	const customLinkClasses = [styles.CustomLink];
 
-	if (props.danger) {
-		classes = styles.CustomLink + ' ' + styles.Danger;
-	} else classes = styles.CustomLink;
+	if (props.cssForCustLnk) {
+		for (const cssClass of props.cssForCustLnk) {
+			customLinkClasses.push(styles[cssClass]);
+		}
+	}
 
 	return (
-		<p className={classes} onClick={props.clicked}>
+		<p className={customLinkClasses.join(' ')} onClick={props.clicked}>
 			{props.text}
 		</p>
 	);

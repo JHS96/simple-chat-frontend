@@ -4,7 +4,7 @@ import Tooltip from '../../UI/Tooltip/Tooltip';
 import * as validators from '../../../util/validators';
 
 const PasswordElements = props => {
-	const [visibleLabels, setVisibliLabels] = useState(false);
+	const [visibleLabel, setVisibliLabel] = useState(false);
 
 	const passwordChangeHandler = event => {
 		const enteredPassword = event.target.value;
@@ -32,7 +32,7 @@ const PasswordElements = props => {
 
 	return (
 		<React.Fragment>
-			<label className='inputLabel'>{visibleLabels ? 'Password' : null}</label>
+			<label className='inputLabel'>{visibleLabel ? 'Password' : null}</label>
 			<input
 				className={!props.acceptableLng ? 'inputError' : null}
 				type='password'
@@ -40,13 +40,19 @@ const PasswordElements = props => {
 				id='password'
 				placeholder='Password'
 				onChange={event => {
-					setVisibliLabels(true);
+					setVisibliLabel(true);
 					passwordChangeHandler(event);
 				}}
 				onBlur={passwordChangeHandler}
 				value={props.val}
 			/>
 			<Tooltip
+				cssForContent={[
+					'Content-Wide--Arrow-Top-Center',
+					'Text-Centered',
+					'Text-Small',
+					'Text-White'
+				]}
 				visible={!props.acceptableLng}
 				text='Password must be at least 6 characters, and no more than 32 characters long.'
 			/>

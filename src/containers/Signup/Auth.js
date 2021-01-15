@@ -41,15 +41,30 @@ const Signup = () => {
 	const ModeSelector = () => {
 		if (mode === 'log in') {
 			return (
-				<CustomLink text='- or Sign Up -' clicked={() => setMode('sign up')} />
+				<CustomLink
+					cssForCustLnk={['Text-Bold', 'Text-Blue', 'Text-Small']}
+					text='- or Sign Up -'
+					clicked={() => setMode('sign up')}
+				/>
 			);
 		} else if (mode === 'sign up' || mode === 'reset password') {
 			return (
-				<CustomLink text='- or Log In -' clicked={() => setMode('log in')} />
+				<CustomLink
+					cssForCustLnk={['Text-Bold', 'Text-Blue', 'Text-Small']}
+					text='- or Log In -'
+					clicked={() => {
+						setMode('log in');
+						setAvatarImg(undefined);
+					}}
+				/>
 			);
 		} else if (mode === 'reset password') {
 			return (
-				<CustomLink text='- or Log In -' clicked={() => setMode('log in')} />
+				<CustomLink
+					cssForCustLnk={['Text-Bold', 'Text-Blue', 'Text-Small']}
+					text='- or Log In -'
+					clicked={() => setMode('log in')}
+				/>
 			);
 		}
 	};
@@ -73,8 +88,10 @@ const Signup = () => {
 		if (mode === 'log in') {
 			return (
 				<Button
-					btnClass={
-						ButtonActive() ? 'btnDefault btnLarge' : 'btnDisabled btnLarge'
+					cssForButton={
+						ButtonActive()
+							? ['Btn-Default', 'Btn-Large']
+							: ['Btn-Disabled', 'Btn-Large']
 					}
 					value='Log In'
 					clicked={event => {
@@ -86,8 +103,10 @@ const Signup = () => {
 		} else if (mode === 'sign up') {
 			return (
 				<Button
-					btnClass={
-						ButtonActive() ? 'btnDefault btnLarge' : 'btnDisabled btnLarge'
+					cssForButton={
+						ButtonActive()
+							? ['Btn-Default', 'Btn-Large']
+							: ['Btn-Disabled', 'Btn-Large']
 					}
 					value='Sign Up'
 					clicked={event => {
@@ -99,8 +118,10 @@ const Signup = () => {
 		} else if (mode === 'reset password') {
 			return (
 				<Button
-					btnClass={
-						ButtonActive() ? 'btnDanger btnLarge' : 'btnDisabled btnLarge'
+					cssForButton={
+						ButtonActive()
+							? ['Btn-Danger', 'Btn-Large']
+							: ['Btn-Disabled', 'Btn-Large']
 					}
 					value='Reset'
 					clicked={event => {
@@ -159,14 +180,14 @@ const Signup = () => {
 							clicked={() => setMode('reset password')}
 						/>
 					)}
+					<SubmitButton />
 					{mode === 'log in' && (
 						<CustomLink
-							danger={true}
+							cssForCustLnk={['Text-Red']}
 							text='Forgot your password?'
 							clicked={() => setMode('reset password')}
 						/>
 					)}
-					<SubmitButton />
 				</div>
 			</form>
 		</div>

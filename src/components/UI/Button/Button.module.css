@@ -1,0 +1,73 @@
+input[type='submit'] {
+	border-radius: 5px;
+}
+
+input[type='submit']:not(.Btn-Disabled) {
+	cursor: pointer;
+}
+
+.Btn-Dark {
+	background: var(--primary-color);
+	color: #fff;
+}
+
+.Btn-Dark:hover {
+	background: var(--highlight-color);
+}
+
+.Btn-Default {
+	background: var(--highlight-color);
+	color: #fff;
+}
+
+.Btn-Default:hover {
+	background: var(--dark-color);
+}
+
+.Btn-Default:active {
+	background-color: var(--highlight-color);
+	color: var(--dark-color);
+}
+
+.Btn-Warning {
+	background-color: var(--warning-color);
+	color: var(--highlight-color);
+}
+
+.Btn-Danger {
+	background: #be0404d2;
+	color: #fff;
+}
+
+.Btn-Danger:hover {
+	background: #ff0000;
+}
+
+.Btn-Danger:active {
+	background: #be0404d2;
+	color: var(--secondary-grey);
+}
+
+.Btn-Disabled {
+	background: var(--pale-grey);
+	color: #bbb;
+	cursor: not-allowed;
+}
+
+.Btn-Large {
+	width: 70%;
+	height: 3.5rem;
+	font-size: 2.5rem;
+}
+
+.Btn-Small {
+	width: 8%;
+}
+
+.Text-Red {
+	color: red;
+}
+
+.Text-Bold {
+	font-weight: bold;
+}

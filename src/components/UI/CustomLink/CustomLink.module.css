@@ -1,10 +1,31 @@
 .CustomLink {
-	color: var(--highlight-color);
-	font-weight: bold;
 	cursor: pointer;
 }
 
-.Danger {
-  font-weight: normal;
-  color: red;
+.Text-Left-Aligned {
+	text-align: left;
+}
+
+.Text-Centered {
+	text-align: center;
+}
+
+.Text-Small {
+	font-size: small;
+}
+
+.Text-Red {
+	color: red;
+}
+
+.Text-White {
+	color: #fff;
+}
+
+.Text-Blue {
+	color: var(--highlight-color);
+}
+
+.Text-Bold {
+	font-weight: bold;
 }
