@@ -1,7 +1,7 @@
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Layout from './hoc/Layout';
-import Auth from './containers/Signup/Auth';
+import Auth from './containers/Auth/Auth';
 
 import './App.css';
 

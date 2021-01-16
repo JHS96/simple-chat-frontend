@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import Logo from '../../components/Logo/Logo';
 import AvatarElements from '../../components/FormElements/AvatarElements/AvatarElements';
 import UsernameElements from '../../components/FormElements/UsernameElements/UsernameElements';
@@ -8,6 +7,7 @@ import PasswordElements from '../../components/FormElements/PasswordElement/Pass
 import Button from '../../components/UI/Button/Button';
 import CustomLink from '../../components/UI/CustomLink/CustomLink';
 import { isFormValid } from '../../util/validators';
+import { useHttpClient } from '../../custom_hooks/http-hook';
 
 import styles from './Auth.module.css';
 
@@ -31,6 +31,8 @@ const Signup = () => {
 	); // Initialize as 'not set' - which is truthy but not explicitly 'true' - to prevent inputError class from being added to input on initial page load
 	const passwordMinLength = 6;
 	const passwordMaxLength = 32;
+
+	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
 	const Heading = () => {
 		if (mode === 'log in') return <h1>Log In</h1>;
@@ -84,6 +86,22 @@ const Signup = () => {
 		);
 	};
 
+	const loginHandler = async event => {
+		const body = JSON.stringify({ email: email, password: password });
+		event.preventDefault();
+		try {
+			const response = await sendRequest(
+				'http://localhost:8080/auth/login',
+				'POST',
+				body,
+				{ 'Content-Type': 'application/json' }
+			);
+			console.log(response);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	const SubmitButton = () => {
 		if (mode === 'log in') {
 			return (
@@ -94,10 +112,7 @@ const Signup = () => {
 							: ['Btn-Disabled', 'Btn-Large']
 					}
 					value='Log In'
-					clicked={event => {
-						event.preventDefault();
-						console.log('log in');
-					}}
+					clicked={event => loginHandler(event)}
 				/>
 			);
 		} else if (mode === 'sign up') {
