@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+
 import Logo from '../../components/Logo/Logo';
 import AvatarElements from '../../components/FormElements/AvatarElements/AvatarElements';
 import UsernameElements from '../../components/FormElements/UsernameElements/UsernameElements';
@@ -8,10 +10,15 @@ import Button from '../../components/UI/Button/Button';
 import CustomLink from '../../components/UI/CustomLink/CustomLink';
 import { isFormValid } from '../../util/validators';
 import { useHttpClient } from '../../custom_hooks/http-hook';
-
+import allActions from '../../redux/actions';
 import styles from './Auth.module.css';
 
 const Signup = () => {
+	const dispatch = useDispatch();
+
+	const [isLoading, setIsLoading] = useState(false); // TODO display loading spinner while loading
+	const [error, setError] = useState(null); // TODO if there is an error, display error in modal
+
 	const [mode, setMode] = useState('log in');
 
 	const [avatarImg, setAvatarImg] = useState();
@@ -32,7 +39,7 @@ const Signup = () => {
 	const passwordMinLength = 6;
 	const passwordMaxLength = 32;
 
-	const { isLoading, error, sendRequest, clearError } = useHttpClient();
+	const { sendRequest } = useHttpClient();
 
 	const Heading = () => {
 		if (mode === 'log in') return <h1>Log In</h1>;
@@ -89,6 +96,7 @@ const Signup = () => {
 	const loginHandler = async event => {
 		const body = JSON.stringify({ email: email, password: password });
 		event.preventDefault();
+		setIsLoading(true);
 		try {
 			const response = await sendRequest(
 				'http://localhost:8080/auth/login',
@@ -96,9 +104,34 @@ const Signup = () => {
 				body,
 				{ 'Content-Type': 'application/json' }
 			);
-			console.log(response);
+			// Set global state
+			dispatch(
+				allActions.userActions.login(
+					response.token,
+					response.jwtExpireTime,
+					response.data.userId,
+					response.data.userName,
+					response.data.email,
+					response.data.avatarUrl
+				)
+			);
+			// Save info in localStorage
+			localStorage.setItem('token', response.token);
+			localStorage.setItem('jwtExpireTime', response.jwtExpireTime);
+			localStorage.setItem(
+				'data',
+				JSON.stringify({
+					id: response.data.userId,
+					name: response.data.userName,
+					email: response.data.email,
+					avatarUrl: response.data.avatarUrl
+				})
+			);
+			setIsLoading(false);
+			setError(null);
 		} catch (err) {
-			console.log(err);
+			setError(err);
+			setIsLoading(false);
 		}
 	};
 
@@ -147,6 +180,8 @@ const Signup = () => {
 			);
 		}
 	};
+
+	console.log(error, isLoading); // TODO remove when loading spinner & error modal are implemented
 
 	return (
 		<div className={styles.Container}>
