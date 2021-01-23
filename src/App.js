@@ -1,24 +1,61 @@
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Layout from './hoc/Layout';
+import LogoutPage from './components/LogoutPage/LogoutPage';
 import Auth from './containers/Auth/Auth';
+import Conversations from './containers/Conversations/Conversations';
+import allActions from './redux/actions/';
 
 import './App.css';
 
-let isAuth = false; // Auth status will be handled in state later (probably Redux)
-
-let routes = (
-	<Switch>
-		<Route path='/auth' exact component={Auth} />
-		<Redirect to='/auth' />
-	</Switch>
-);
-
-if (isAuth) {
-	routes = <Switch></Switch>; // Different/more routes will be available for authenticated users later
-}
-
 const App = () => {
+	const dispatch = useDispatch();
+	const user = useSelector(state => state.user);
+	let isAuth = user.isAuth;
+	useEffect(() => {
+		// Check if valid (non-expired) token & data exists in localStorage. Auto-login (or not) based on that
+		const token = localStorage.getItem('token');
+		const jwtExpTime = localStorage.getItem('jwtExpireTime');
+		const data = JSON.parse(localStorage.getItem('data'));
+		if (token && jwtExpTime && jwtExpTime > Date.now() && data) {
+			dispatch(
+				allActions.userActions.login(
+					token,
+					jwtExpTime,
+					data.id,
+					data.name,
+					data.email,
+					data.avatarUrl
+				)
+			);
+			dispatch(
+				allActions.userActions.checkAuthTimeout(jwtExpTime - Date.now())
+			);
+		} else if (jwtExpTime && jwtExpTime < Date.now()) {
+			dispatch(allActions.userActions.logout());
+		}
+	}, [dispatch]);
+
+	let routes = (
+		<Switch>
+			<Route path='/auth' exact component={Auth} />
+			<Route path='/logout' exact component={LogoutPage} />
+			<Redirect to='/auth' />
+		</Switch>
+	);
+
+	if (isAuth) {
+		routes = (
+			<Switch>
+				<Route path='/conversations' exact component={Conversations} />
+				<Route path='/logout' exact component={LogoutPage} />
+				<Redirect to='/conversations' />
+			</Switch>
+		); // Different/more routes will be available for authenticated users later
+	}
+
 	return (
 		<div>
 			<Layout isAuth={isAuth}>{routes}</Layout>
@@ -26,4 +63,4 @@ const App = () => {
 	);
 };
 
-export default App;
+export default withRouter(App);

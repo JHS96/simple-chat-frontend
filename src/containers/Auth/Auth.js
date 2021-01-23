@@ -13,11 +13,8 @@ import { useHttpClient } from '../../custom_hooks/http-hook';
 import allActions from '../../redux/actions';
 import styles from './Auth.module.css';
 
-const Signup = () => {
+const Auth = props => {
 	const dispatch = useDispatch();
-
-	const [isLoading, setIsLoading] = useState(false); // TODO display loading spinner while loading
-	const [error, setError] = useState(null); // TODO if there is an error, display error in modal
 
 	const [mode, setMode] = useState('log in');
 
@@ -39,7 +36,7 @@ const Signup = () => {
 	const passwordMinLength = 6;
 	const passwordMaxLength = 32;
 
-	const { sendRequest } = useHttpClient();
+	const { sendRequest, isLoading, error } = useHttpClient();
 
 	const Heading = () => {
 		if (mode === 'log in') return <h1>Log In</h1>;
@@ -96,7 +93,6 @@ const Signup = () => {
 	const loginHandler = async event => {
 		const body = JSON.stringify({ email: email, password: password });
 		event.preventDefault();
-		setIsLoading(true);
 		try {
 			const response = await sendRequest(
 				'http://localhost:8080/auth/login',
@@ -106,7 +102,7 @@ const Signup = () => {
 			);
 			// Set global state
 			dispatch(
-				allActions.userActions.login(
+				allActions.userActions.loginStart(
 					response.token,
 					response.jwtExpireTime,
 					response.data.userId,
@@ -127,11 +123,9 @@ const Signup = () => {
 					avatarUrl: response.data.avatarUrl
 				})
 			);
-			setIsLoading(false);
-			setError(null);
+			props.history.replace('/conversations');
 		} catch (err) {
-			setError(err);
-			setIsLoading(false);
+			console.log(err);
 		}
 	};
 
@@ -181,7 +175,8 @@ const Signup = () => {
 		}
 	};
 
-	console.log(error, isLoading); // TODO remove when loading spinner & error modal are implemented
+	if (error) console.log(error); // TODO display error modal
+	if (isLoading) console.log('Loading...'); // TODO display loading spinner
 
 	return (
 		<div className={styles.Container}>
@@ -233,7 +228,7 @@ const Signup = () => {
 					<SubmitButton />
 					{mode === 'log in' && (
 						<CustomLink
-							cssForCustLnk={['Text-Red']}
+							cssForCustLnk={['Text-Red', 'Text-Small']}
 							text='Forgot your password?'
 							clicked={() => setMode('reset password')}
 						/>
@@ -244,4 +239,4 @@ const Signup = () => {
 	);
 };
 
-export default Signup;
+export default Auth;

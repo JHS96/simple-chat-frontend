@@ -51,7 +51,7 @@ input[type='submit']:not(.Btn-Disabled) {
 .Btn-Disabled {
 	background: var(--pale-grey);
 	color: #bbb;
-	cursor: not-allowed;
+	cursor: none;
 }
 
 .Btn-Large {

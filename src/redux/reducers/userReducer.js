@@ -1,6 +1,7 @@
 import * as actionTypes from '../actionTypes';
 
 const initialState = {
+	isAuth: false,
 	token: '',
 	jwtExpireTime: '',
 	userId: '',
@@ -14,12 +15,24 @@ const user = (state = initialState, action) => {
 		case actionTypes.LOGIN:
 			return {
 				...state,
+				isAuth: true,
 				token: action.token,
 				jwtExpireTime: action.expTime,
 				userId: action.userId,
 				userName: action.userName,
 				userEmail: action.userEmail,
 				avatarUrl: action.avatarUrl
+			};
+		case actionTypes.LOGOUT:
+			return {
+				...state,
+				token: '',
+				isAuth: false,
+				jwtExpireTime: '',
+				userId: '',
+				userName: '',
+				userEmail: '',
+				avatarUrl: ''
 			};
 		default:
 			return state;

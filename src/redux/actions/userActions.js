@@ -1,5 +1,12 @@
 import * as actionTypes from '../actionTypes';
 
+const loginStart = (jwt, jwtExpireTime, id, name, email, url) => {
+	return dispatch => {
+		dispatch(checkAuthTimeout(jwtExpireTime - Date.now()));
+		dispatch(login(jwt, jwtExpireTime, id, name, email, url));
+	};
+};
+
 const login = (jwt, jwtExpireTime, id, name, email, url) => {
 	return {
 		type: actionTypes.LOGIN,
@@ -12,8 +19,26 @@ const login = (jwt, jwtExpireTime, id, name, email, url) => {
 	};
 };
 
+const logout = () => {
+	localStorage.removeItem('data');
+	localStorage.removeItem('token');
+	localStorage.removeItem('jwtExpireTime');
+	return { type: actionTypes.LOGOUT };
+};
+
+const checkAuthTimeout = expireTime => {
+	return dispatch => {
+		setTimeout(() => {
+			dispatch(logout());
+		}, expireTime);
+	};
+};
+
 const userAcions = {
-	login
+	loginStart,
+	login,
+	logout,
+	checkAuthTimeout
 };
 
 export default userAcions;
