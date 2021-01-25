@@ -8,6 +8,7 @@ import EmailElements from '../../components/FormElements/EmailElements/EmailElem
 import PasswordElements from '../../components/FormElements/PasswordElement/PasswordElements';
 import Button from '../../components/UI/Button/Button';
 import CustomLink from '../../components/UI/CustomLink/CustomLink';
+import LoadingIndicator from '../../components/UI/LoadingIndicator/LoadingIndicator';
 import { isFormValid } from '../../util/validators';
 import { useHttpClient } from '../../custom_hooks/http-hook';
 import allActions from '../../redux/actions';
@@ -225,7 +226,11 @@ const Auth = props => {
 							clicked={() => setMode('reset password')}
 						/>
 					)}
-					<SubmitButton />
+					{isLoading ? (
+						<LoadingIndicator size='LoaderLarge' />
+					) : (
+						<SubmitButton />
+					)}
 					{mode === 'log in' && (
 						<CustomLink
 							cssForCustLnk={['Text-Red', 'Text-Small']}
