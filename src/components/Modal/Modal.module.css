@@ -1,0 +1,51 @@
+.Container {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	top: 15%;
+	z-index: 15;
+}
+
+.SlideOut {
+	transform: translateY(-100vh);
+	transition: all ease 300ms;
+}
+
+.SlideIn {
+	transform: translateY(0);
+	transition: all ease 300ms;
+}
+
+.ModalContent {
+	min-width: 500px;
+	max-width: 750px;
+  margin: auto;
+	background: #fff;
+	z-index: 3;
+	/* border: 1px solid #ccc; */
+	border-radius: 5px;
+	/* box-shadow: 1px 1px 1px 1px #ccc; */
+}
+
+.ModalHeader {
+  padding: 0.25rem;
+  background: var(--dark-color);
+  color: #fff;
+  font-size: 1.5rem;
+  border-radius: 5px 5px 0 0;
+}
+
+.ModalBody {
+  padding: 1rem;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.ModalFooter {
+  background: var(--secondary-color);
+  text-align: center;
+  border-radius: 0 0 5px 5px;
+}

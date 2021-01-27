@@ -9,6 +9,8 @@ import PasswordElements from '../../components/FormElements/PasswordElement/Pass
 import Button from '../../components/UI/Button/Button';
 import CustomLink from '../../components/UI/CustomLink/CustomLink';
 import LoadingIndicator from '../../components/UI/LoadingIndicator/LoadingIndicator';
+import Backdrop from '../../components/UI/Backdrop/Backdrop';
+import Modal from '../../components/Modal/Modal';
 import { isFormValid } from '../../util/validators';
 import { useHttpClient } from '../../custom_hooks/http-hook';
 import allActions from '../../redux/actions';
@@ -37,7 +39,7 @@ const Auth = props => {
 	const passwordMinLength = 6;
 	const passwordMaxLength = 32;
 
-	const { sendRequest, isLoading, error } = useHttpClient();
+	const { sendRequest, isLoading, error, clearError } = useHttpClient();
 
 	const Heading = () => {
 		if (mode === 'log in') return <h1>Log In</h1>;
@@ -176,71 +178,74 @@ const Auth = props => {
 		}
 	};
 
-	if (error) console.log(error); // TODO display error modal
-	if (isLoading) console.log('Loading...'); // TODO display loading spinner
-
 	return (
-		<div className={styles.Container}>
-			<form className={styles.SignupForm}>
-				<div className={styles.FormElements}>
-					<div className={styles.LogoContainer}>
-						<Logo />
+		<React.Fragment>
+			<Backdrop visible={error} clicked={() => clearError()} />
+			<Modal visible={error} btnClicked={() => clearError()} header='Error...'>
+				<p>{error}</p>
+			</Modal>
+			<div className={styles.Container}>
+				<form className={styles.SignupForm}>
+					<div className={styles.FormElements}>
+						<div className={styles.LogoContainer}>
+							<Logo />
+						</div>
+						<hr />
+						<Heading />
+						<ModeSelector />
+						<hr />
+						{mode === 'sign up' && (
+							<React.Fragment>
+								<AvatarElements
+									imgValid={isAvatarImgValid}
+									avatarImg={avatarImg}
+									setAvImg={setAvatarImg}
+									setAvImgValid={setIsAvatarImgValid}
+								/>
+								<UsernameElements
+									setName={setUserName}
+									setNameValid={setIsUserNameValid}
+									nameMinLng={userNameMinLength}
+									nameMaxLng={userNameMaxLength}
+									nameValid={isUserNameValid}
+									name={userName}
+								/>
+							</React.Fragment>
+						)}
+						<EmailElements
+							setMail={setEmail}
+							setMailValid={setIsEmailValid}
+							mailIsValid={isEmailValid}
+							val={email}
+						/>
+						{mode !== 'reset password' && (
+							<PasswordElements
+								setPw={setPassword}
+								setPwAcceptableLng={setIsPasswordAcceptableLength}
+								acceptableLng={isPasswordAcceptableLength}
+								pwMinLng={passwordMinLength}
+								pwMaxLng={passwordMaxLength}
+								val={password}
+								mode={mode}
+								clicked={() => setMode('reset password')}
+							/>
+						)}
+						{isLoading ? (
+							<LoadingIndicator size='LoaderLarge' />
+						) : (
+							<SubmitButton />
+						)}
+						{mode === 'log in' && (
+							<CustomLink
+								cssForCustLnk={['Text-Red', 'Text-Small']}
+								text='Forgot your password?'
+								clicked={() => setMode('reset password')}
+							/>
+						)}
 					</div>
-					<hr />
-					<Heading />
-					<ModeSelector />
-					<hr />
-					{mode === 'sign up' && (
-						<React.Fragment>
-							<AvatarElements
-								imgValid={isAvatarImgValid}
-								avatarImg={avatarImg}
-								setAvImg={setAvatarImg}
-								setAvImgValid={setIsAvatarImgValid}
-							/>
-							<UsernameElements
-								setName={setUserName}
-								setNameValid={setIsUserNameValid}
-								nameMinLng={userNameMinLength}
-								nameMaxLng={userNameMaxLength}
-								nameValid={isUserNameValid}
-								name={userName}
-							/>
-						</React.Fragment>
-					)}
-					<EmailElements
-						setMail={setEmail}
-						setMailValid={setIsEmailValid}
-						mailIsValid={isEmailValid}
-						val={email}
-					/>
-					{mode !== 'reset password' && (
-						<PasswordElements
-							setPw={setPassword}
-							setPwAcceptableLng={setIsPasswordAcceptableLength}
-							acceptableLng={isPasswordAcceptableLength}
-							pwMinLng={passwordMinLength}
-							pwMaxLng={passwordMaxLength}
-							val={password}
-							mode={mode}
-							clicked={() => setMode('reset password')}
-						/>
-					)}
-					{isLoading ? (
-						<LoadingIndicator size='LoaderLarge' />
-					) : (
-						<SubmitButton />
-					)}
-					{mode === 'log in' && (
-						<CustomLink
-							cssForCustLnk={['Text-Red', 'Text-Small']}
-							text='Forgot your password?'
-							clicked={() => setMode('reset password')}
-						/>
-					)}
-				</div>
-			</form>
-		</div>
+				</form>
+			</div>
+		</React.Fragment>
 	);
 };
 
