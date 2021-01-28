@@ -6,9 +6,11 @@ import allActions from '../../redux/actions';
 
 const LogoutPage = props => {
 	const dispatch = useDispatch();
+
 	useEffect(() => {
 		dispatch(allActions.userActions.logout());
 	}, [dispatch]);
+
 	return (
 		<React.Fragment>
 			<h1>You are logged out.</h1>

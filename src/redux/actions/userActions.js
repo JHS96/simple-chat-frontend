@@ -8,6 +8,17 @@ const loginStart = (jwt, jwtExpireTime, id, name, email, url) => {
 };
 
 const login = (jwt, jwtExpireTime, id, name, email, url) => {
+	localStorage.setItem('token', jwt);
+	localStorage.setItem('jwtExpireTime', jwtExpireTime);
+	localStorage.setItem(
+		'data',
+		JSON.stringify({
+			id: id,
+			name: name,
+			email: email,
+			avatarUrl: url
+		})
+	);
 	return {
 		type: actionTypes.LOGIN,
 		token: jwt,

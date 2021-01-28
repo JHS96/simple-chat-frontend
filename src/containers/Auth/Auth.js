@@ -103,7 +103,6 @@ const Auth = props => {
 				body,
 				{ 'Content-Type': 'application/json' }
 			);
-			// Set global state
 			dispatch(
 				allActions.userActions.loginStart(
 					response.token,
@@ -113,18 +112,6 @@ const Auth = props => {
 					response.data.email,
 					response.data.avatarUrl
 				)
-			);
-			// Save info in localStorage
-			localStorage.setItem('token', response.token);
-			localStorage.setItem('jwtExpireTime', response.jwtExpireTime);
-			localStorage.setItem(
-				'data',
-				JSON.stringify({
-					id: response.data.userId,
-					name: response.data.userName,
-					email: response.data.email,
-					avatarUrl: response.data.avatarUrl
-				})
 			);
 			props.history.replace('/conversations');
 		} catch (err) {
