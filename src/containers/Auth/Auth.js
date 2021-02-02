@@ -39,12 +39,15 @@ const Auth = props => {
 	const passwordMinLength = 6;
 	const passwordMaxLength = 32;
 
+	const [serverResMsg, setServerResMsg] = useState();
+
 	const { sendRequest, isLoading, error, clearError } = useHttpClient();
 
 	const Heading = () => {
 		if (mode === 'log in') return <h1>Log In</h1>;
 		else if (mode === 'sign up') return <h1>Sign Up</h1>;
 		else if (mode === 'reset password') return <h1>Reset Password</h1>;
+		else if (mode === 'resend email') return <h1>Resend Confirmation Email</h1>;
 	};
 
 	const ModeSelector = () => {
@@ -56,7 +59,11 @@ const Auth = props => {
 					clicked={() => setMode('sign up')}
 				/>
 			);
-		} else if (mode === 'sign up' || mode === 'reset password') {
+		} else if (
+			mode === 'sign up' ||
+			mode === 'reset password' ||
+			mode === 'resend email'
+		) {
 			return (
 				<CustomLink
 					cssForCustLnk={['Text-Bold', 'Text-Blue', 'Text-Small']}
@@ -65,14 +72,6 @@ const Auth = props => {
 						setMode('log in');
 						setAvatarImg(undefined);
 					}}
-				/>
-			);
-		} else if (mode === 'reset password') {
-			return (
-				<CustomLink
-					cssForCustLnk={['Text-Bold', 'Text-Blue', 'Text-Small']}
-					text='- or Log In -'
-					clicked={() => setMode('log in')}
 				/>
 			);
 		}
@@ -119,6 +118,73 @@ const Auth = props => {
 		}
 	};
 
+	const signupHandler = async event => {
+		event.preventDefault();
+
+		const formData = new FormData();
+		formData.append('avatar', avatarImg);
+		formData.append('name', userName);
+		formData.append('email', email);
+		formData.append('password', password);
+
+		try {
+			const response = await sendRequest(
+				'http://localhost:8080/auth/signup',
+				'POST',
+				formData
+			);
+			setServerResMsg(response.message);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const resendConfEmailHandler = async event => {
+		const body = JSON.stringify({ email: email });
+		try {
+			const response = await sendRequest(
+				'http://localhost:8080/account/resend-confirmation-email',
+				'POST',
+				body,
+				{ 'Content-Type': 'application/json' }
+			);
+			setServerResMsg(response.message);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const ModalEl = () => {
+		if (error) {
+			return (
+				<React.Fragment>
+					<Backdrop visible={error} clicked={() => clearError()} />
+					<Modal
+						visible={error}
+						btnClicked={() => clearError()}
+						header='Sorry...'>
+						<p>{error}</p>
+					</Modal>
+				</React.Fragment>
+			);
+		} else if (serverResMsg) {
+			return (
+				<React.Fragment>
+					<Backdrop
+						visible={serverResMsg}
+						clicked={() => setServerResMsg(null)}
+					/>
+					<Modal
+						visible={serverResMsg}
+						btnClicked={() => setServerResMsg(null)}
+						header='Success!'>
+						<p>{serverResMsg}</p>
+					</Modal>
+				</React.Fragment>
+			);
+		} else return null;
+	};
+
 	const SubmitButton = () => {
 		if (mode === 'log in') {
 			return (
@@ -141,10 +207,7 @@ const Auth = props => {
 							: ['Btn-Disabled', 'Btn-Large']
 					}
 					value='Sign Up'
-					clicked={event => {
-						event.preventDefault();
-						console.log('sign up');
-					}}
+					clicked={event => signupHandler(event)}
 				/>
 			);
 		} else if (mode === 'reset password') {
@@ -162,15 +225,24 @@ const Auth = props => {
 					}}
 				/>
 			);
+		} else if (mode === 'resend email') {
+			return (
+				<Button
+					cssForButton={
+						ButtonActive()
+							? ['Btn-Default', 'Btn-Large']
+							: ['Btn-Disabled', 'Btn-Large']
+					}
+					value='Send Email'
+					clicked={event => resendConfEmailHandler(event)}
+				/>
+			);
 		}
 	};
 
 	return (
 		<React.Fragment>
-			<Backdrop visible={error} clicked={() => clearError()} />
-			<Modal visible={error} btnClicked={() => clearError()} header='Error...'>
-				<p>{error}</p>
-			</Modal>
+			<ModalEl />
 			<div className={styles.Container}>
 				<form className={styles.SignupForm}>
 					<div className={styles.FormElements}>
@@ -205,7 +277,7 @@ const Auth = props => {
 							mailIsValid={isEmailValid}
 							val={email}
 						/>
-						{mode !== 'reset password' && (
+						{mode !== 'reset password' && mode !== 'resend email' && (
 							<PasswordElements
 								setPw={setPassword}
 								setPwAcceptableLng={setIsPasswordAcceptableLength}
@@ -224,9 +296,16 @@ const Auth = props => {
 						)}
 						{mode === 'log in' && (
 							<CustomLink
-								cssForCustLnk={['Text-Red', 'Text-Small']}
+								cssForCustLnk={['Text-Blue', 'Text-Small', 'Text-Bold']}
 								text='Forgot your password?'
 								clicked={() => setMode('reset password')}
+							/>
+						)}
+						{mode === 'sign up' && (
+							<CustomLink
+								cssForCustLnk={['Text-Blue', 'Text-Small', 'Text-Bold']}
+								text='Resend confirmation email...'
+								clicked={() => setMode('resend email')}
 							/>
 						)}
 					</div>

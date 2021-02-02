@@ -14,6 +14,10 @@
 	font-size: small;
 }
 
+.Text-Extra-Large {
+	font-size: 3rem;
+}
+
 .Text-Red {
 	color: red;
 }

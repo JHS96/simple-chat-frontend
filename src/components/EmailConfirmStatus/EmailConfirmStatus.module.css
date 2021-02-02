@@ -1,0 +1,24 @@
+.ErrorMsg {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: red;
+}
+
+.Suggestion {
+  color: var(--highlight-color);
+  font-weight: bold;
+}
+
+.OrderedList {
+  margin: 1rem;
+  text-align: left;
+  font-size: 1.1rem;
+}
+
+.PageContent {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+  margin: auto;
+  text-align: center;
+}

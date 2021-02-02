@@ -6,6 +6,7 @@ import Layout from './hoc/Layout';
 import LogoutPage from './components/LogoutPage/LogoutPage';
 import Auth from './containers/Auth/Auth';
 import Conversations from './containers/Conversations/Conversations';
+import EmailConfirmStatus from './components/EmailConfirmStatus/EmailConfirmStatus';
 import allActions from './redux/actions/';
 
 import './App.css';
@@ -42,6 +43,10 @@ const App = () => {
 		<Switch>
 			<Route path='/auth' exact component={Auth} />
 			<Route path='/logout' exact component={LogoutPage} />
+			<Route
+				path='/auth/confirm/:userId/:token'
+				component={EmailConfirmStatus}
+			/>
 			<Redirect to='/auth' />
 		</Switch>
 	);

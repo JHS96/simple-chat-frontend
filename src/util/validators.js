@@ -86,5 +86,10 @@ export const isFormValid = (
 			return true;
 		}
 	}
+	if (mode === 'resend email') {
+		if (isValidEmail(email)) {
+			return true;
+		}
+	}
 	return false;
 };
