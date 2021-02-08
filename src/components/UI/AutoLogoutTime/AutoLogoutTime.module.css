@@ -1,0 +1,10 @@
+.AutoLogoutTime {
+	text-align: center;
+	font-size: small;
+	color: var(--primary-color);
+}
+
+.Time {
+	font-weight: bold;
+	color: var(--highlight-color);
+}

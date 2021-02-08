@@ -1,0 +1,52 @@
+.Container {
+	display: flex;
+	width: 250px;
+	background: var(--primary-color);
+	border-bottom: 1px dotted var(--secondary-color);
+}
+
+.Tag {
+	width: 200px;
+	height: 3.5rem;
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	background: var(--primary-color);
+	color: #fff;
+	cursor: pointer;
+}
+
+.Avatar {
+	height: 45px;
+	width: 45px;
+	background: #fff;
+	margin: 0 1rem;
+	border-radius: 50%;
+	border: 2px solid var(--highlight-color);
+}
+
+.Name {
+	font-size: 1.25rem;
+}
+
+.MenuBtn {
+	height: 1.5rem;
+	width: 1.5rem;
+	margin: 1rem 0 0 0.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	background: var(--primary-color);
+	color: #fff;
+	cursor: pointer;
+}
+
+.Dot {
+	width: 2px;
+	height: 2px;
+	margin: 0.1rem;
+	background: #fff;
+}

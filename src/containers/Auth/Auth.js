@@ -97,7 +97,7 @@ const Auth = props => {
 		event.preventDefault();
 		try {
 			const response = await sendRequest(
-				'http://localhost:8080/auth/login',
+				`${process.env.REACT_APP_BACKEND_URL}/auth/login`,
 				'POST',
 				body,
 				{ 'Content-Type': 'application/json' }
@@ -129,7 +129,7 @@ const Auth = props => {
 
 		try {
 			const response = await sendRequest(
-				'http://localhost:8080/auth/signup',
+				`${process.env.REACT_APP_BACKEND_URL}/auth/signup`,
 				'POST',
 				formData
 			);
@@ -143,7 +143,7 @@ const Auth = props => {
 		const body = JSON.stringify({ email: email });
 		try {
 			const response = await sendRequest(
-				'http://localhost:8080/account/resend-confirmation-email',
+				`${process.env.REACT_APP_BACKEND_URL}/account/resend-confirmation-email`,
 				'POST',
 				body,
 				{ 'Content-Type': 'application/json' }

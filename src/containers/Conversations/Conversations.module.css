@@ -1,0 +1,27 @@
+.Header {
+	color: var(--primary-color);
+}
+
+.Container {
+	height: 82.75vh;
+	display: flex;
+	justify-content: center;
+}
+
+.Devider {
+	height: 2px;
+	width: 100%;
+	background: var(--primary-color);
+}
+
+.NameTagArea {
+	background: var(--primary-color);
+	overflow-x: none;
+}
+
+.MsgArea {
+	width: 1200px;
+	padding: 0.5rem;
+	background: #fff;
+	overflow: none;
+}
