@@ -33,15 +33,21 @@
 }
 
 .MenuBtn {
-	height: 1.5rem;
-	width: 1.5rem;
-	margin: 1rem 0 0 0.5rem;
+	height: 2rem;
+	width: 2rem;
+	margin: 0.75rem 0 0 0.5rem;
+	padding: 0.25rem;
 	display: flex;
 	align-items: center;
 	justify-content: space-evenly;
 	background: var(--primary-color);
 	color: #fff;
+	border-radius: 50%;
 	cursor: pointer;
+}
+
+.MenuBtn:hover {
+	background: var(--highlight-color);
 }
 
 .Dot {
