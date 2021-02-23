@@ -1,6 +1,6 @@
 import userActions from './userActions';
-// At least 1 more actions file import to follow
+import conversationActions from './conversationActions';
 
-const allActions = { userActions };
+const allActions = { userActions, conversationActions };
 
 export default allActions;

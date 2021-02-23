@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { useHttpClient } from '../../custom_hooks/http-hook';
 import Modal from '../../components/Modal/Modal';
@@ -10,12 +10,12 @@ import NameTag from '../../components/NameTag/NameTag';
 import DefaultAvatar from '../../assets/images/default-avatar.png';
 import Thread from '../../components/Thread/Thread';
 import styles from './Conversations.module.css';
+import allActions from '../../redux/actions';
 
 const Conversations = () => {
+	const dispatch = useDispatch();
 	const user = useSelector(state => state.user);
-	const [conversations, setConversations] = useState([]);
-	const [selectedConversationId, setSelectedConversationId] = useState();
-	const [thread, setThread] = useState([]);
+	const conversations = useSelector(state => state.conversations);
 	const { sendRequest, isLoading, error, clearError } = useHttpClient();
 
 	useEffect(() => {
@@ -27,13 +27,17 @@ const Conversations = () => {
 					null,
 					{ Authorization: `Bearer ${user.token}` }
 				);
-				setConversations(response.conversations);
+				dispatch(
+					allActions.conversationActions.setConversations(
+						response.conversations
+					)
+				);
 			} catch (err) {
 				console.log(err);
 			}
 		};
 		getConversations();
-	}, [sendRequest, user.token]);
+	}, [sendRequest, user.token, dispatch]);
 
 	const getConversationHandler = async conversationId => {
 		try {
@@ -43,8 +47,12 @@ const Conversations = () => {
 				null,
 				{ Authorization: `Bearer ${user.token}` }
 			);
-			setThread(response.conversation.thread);
-			setSelectedConversationId(conversationId);
+			dispatch(
+				allActions.conversationActions.selectConversation(
+					response.conversationId,
+					response.conversation.thread
+				)
+			);
 		} catch (err) {
 			console.log(err);
 		}
@@ -68,7 +76,7 @@ const Conversations = () => {
 
 			<div className={styles.Container} id='container'>
 				<div className={styles.NameTagArea}>
-					{conversations.map(chat => (
+					{conversations.conversations.map(chat => (
 						<NameTag
 							key={chat._id}
 							name={chat.contactName}
@@ -86,7 +94,10 @@ const Conversations = () => {
 					{isLoading ? (
 						<LoadingIndicator size='LoaderLarge' />
 					) : (
-						<Thread msgArr={thread} conversationId={selectedConversationId} />
+						<Thread
+							msgArr={conversations.thread}
+							conversationId={conversations.selectedConversationId}
+						/>
 					)}
 				</div>
 			</div>

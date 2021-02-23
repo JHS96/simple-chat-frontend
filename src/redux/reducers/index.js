@@ -1,8 +1,11 @@
 import { combineReducers } from 'redux';
 
 import userReducer from './userReducer';
-// At least 1 more reducer to follow...
+import conversationReducer from './conversationReducer';
 
-const rootReducer = combineReducers({ user: userReducer });
+const rootReducer = combineReducers({
+	user: userReducer,
+	conversations: conversationReducer
+});
 
 export default rootReducer;
