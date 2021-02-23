@@ -106,6 +106,34 @@
 	top: -5px;
 }
 
+/*************************************************/
+/* Styles for Tooltip to be used as Context Menu */
+/*************************************************/
+.Tooltip .Context-Menu-Style {
+	width: 120px;
+	margin-left: -120px;
+	top: 100%;
+	left: 50%;
+	visibility: hidden;
+	padding: 5px;
+	background: var(--secondary-color);
+	position: absolute;
+	z-index: 1;
+}
+
+.Tooltip .Context-Menu-Style::after {
+	content: '';
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent var(--secondary-color) transparent transparent;
+	right: 0;
+	top: -5px;
+}
+
+
 /**********************/
 /* Tooltip Visibility */
 /**********************/

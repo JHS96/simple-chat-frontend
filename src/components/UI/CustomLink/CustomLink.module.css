@@ -2,6 +2,15 @@
 	cursor: pointer;
 }
 
+.CustomLink:not(:last-child) {
+	margin-bottom: 0.35rem;
+	padding-bottom: 0.35rem;
+}
+
+.CustomLink:hover {
+	color: var(--highlight-color);
+}
+
 .Text-Left-Aligned {
 	text-align: left;
 }
@@ -12,6 +21,10 @@
 
 .Text-Small {
 	font-size: small;
+}
+
+.Text-Medium {
+	font-size: 0.85rem;
 }
 
 .Text-Extra-Large {
@@ -28,6 +41,10 @@
 
 .Text-Blue {
 	color: var(--highlight-color);
+}
+
+.Text-Dark {
+	color: var(--dark-color);
 }
 
 .Text-Bold {

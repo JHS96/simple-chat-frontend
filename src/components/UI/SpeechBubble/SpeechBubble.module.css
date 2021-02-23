@@ -1,0 +1,78 @@
+.AlignLeft {
+  display: flex;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.AlignRight {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.BubbleLeft {
+	display: flex;
+	align-items: center;
+	position: relative;
+	background: var(--highlight-color);
+  color: #fff;
+	max-width: 750px;
+	padding: 0.4rem;
+	margin-left: 0.75rem;
+	border-radius: 5px;
+}
+
+.BubbleLeft::before,
+.BubbleLeft::after {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: ' ';
+	position: absolute;
+	pointer-events: none;
+}
+
+.BubbleLeft::before {
+  border-width: 6px;
+  margin-top: -6px;
+}
+
+.BubbleLeft::after {
+  border-right-color: var(--highlight-color);
+  border-width: 7px;
+  margin-top: -7px;
+}
+
+.BubbleRight {
+	display: flex;
+	align-items: center;
+	position: relative;
+	background: var(--dark-color);
+  color: #fff;
+	max-width: 750px;
+	padding: 0.4rem;
+	margin-right: 0.75rem;
+	border-radius: 5px;
+}
+
+.BubbleRight::before,
+.BubbleRight::after {
+	left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: ' ';
+	position: absolute;
+	pointer-events: none;
+}
+
+.BubbleRight::before {
+  border-width: 6px;
+  margin-top: -6px;
+}
+
+.BubbleRight::after {
+  border-left-color: var(--dark-color);
+  border-width: 7px;
+  margin-top: -7px;
+}

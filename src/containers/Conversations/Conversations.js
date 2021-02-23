@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { useHttpClient } from '../../custom_hooks/http-hook';
@@ -8,11 +8,14 @@ import LoadingIndicator from '../../components/UI/LoadingIndicator/LoadingIndica
 import AutoLogoutTime from '../../components/UI/AutoLogoutTime/AutoLogoutTime';
 import NameTag from '../../components/NameTag/NameTag';
 import DefaultAvatar from '../../assets/images/default-avatar.png';
+import Thread from '../../components/Thread/Thread';
 import styles from './Conversations.module.css';
 
 const Conversations = () => {
 	const user = useSelector(state => state.user);
 	const [conversations, setConversations] = useState([]);
+	const [selectedConversationId, setSelectedConversationId] = useState();
+	const [thread, setThread] = useState([]);
 	const { sendRequest, isLoading, error, clearError } = useHttpClient();
 
 	useEffect(() => {
@@ -25,13 +28,27 @@ const Conversations = () => {
 					{ Authorization: `Bearer ${user.token}` }
 				);
 				setConversations(response.conversations);
-				console.log(response);
 			} catch (err) {
 				console.log(err);
 			}
 		};
 		getConversations();
 	}, [sendRequest, user.token]);
+
+	const getConversationHandler = async conversationId => {
+		try {
+			const response = await sendRequest(
+				`${process.env.REACT_APP_BACKEND_URL}/messages/get-conversation/${conversationId}`,
+				'GET',
+				null,
+				{ Authorization: `Bearer ${user.token}` }
+			);
+			setThread(response.conversation.thread);
+			setSelectedConversationId(conversationId);
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
 	return (
 		<div>
@@ -43,38 +60,36 @@ const Conversations = () => {
 					{error}
 				</Modal>
 			) : null}
-
 			{error ? <Backdrop visible={error} clicked={() => clearError()} /> : null}
+
 			<h1 className={styles.Header}>{`Welcome ${user.userName}`}</h1>
 			<AutoLogoutTime time={user.jwtExpireTime} />
-			{isLoading ? <LoadingIndicator size='LoaderLarge' /> : null}
+			<div className={styles.Devider}></div>
 
-			{!isLoading ? (
-				<React.Fragment>
-					<div className={styles.Devider}></div>
-					<div className={styles.Container}>
-						<div className={styles.NameTagArea}>
-							{conversations.map(chat => (
-								<NameTag
-									key={chat._id}
-									name={chat.contactName}
-									contactAvatarUrl={
-										chat.contactAvatarUrl ===
-											process.env.REACT_APP_DEFAULT_AVATAR ||
-										!chat.contactAvatarUrl
-											? DefaultAvatar
-											: chat.contactAvatarUrl
-									}
-									clicked={() => console.log(chat._id)}
-								/>
-							))}
-						</div>
-						<div className={styles.MsgArea}>
-							<h2>Messages</h2>
-						</div>
-					</div>
-				</React.Fragment>
-			) : null}
+			<div className={styles.Container} id='container'>
+				<div className={styles.NameTagArea}>
+					{conversations.map(chat => (
+						<NameTag
+							key={chat._id}
+							name={chat.contactName}
+							contactAvatarUrl={
+								chat.contactAvatarUrl ===
+									process.env.REACT_APP_DEFAULT_AVATAR || !chat.contactAvatarUrl
+									? DefaultAvatar
+									: chat.contactAvatarUrl
+							}
+							clicked={() => getConversationHandler(chat._id)}
+						/>
+					))}
+				</div>
+				<div className={styles.MsgArea}>
+					{isLoading ? (
+						<LoadingIndicator size='LoaderLarge' />
+					) : (
+						<Thread msgArr={thread} conversationId={selectedConversationId} />
+					)}
+				</div>
+			</div>
 		</div>
 	);
 };

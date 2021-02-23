@@ -1,3 +1,4 @@
+import ContextMenu from '../UI/ContextMenu/ContextMenu';
 import styles from './NameTag.module.css';
 
 const NameTag = props => (
@@ -10,11 +11,7 @@ const NameTag = props => (
 			/>
 			<p className={styles.Name}>{props.name}</p>
 		</div>
-		<div className={styles.MenuBtn}>
-			<div className={styles.Dot}></div>
-			<div className={styles.Dot}></div>
-			<div className={styles.Dot}></div>
-		</div>
+		<ContextMenu menuStyle='Dots' />
 	</div>
 );
 
