@@ -24,6 +24,7 @@ const SpeechBubble = props => {
 					menuStyle='Arrow'
 					menuItems={menuItems.map(item => (
 						<CustomLink
+							key={props.senderName + item} // TODO Create better keys when menuItems are implemented
 							cssForCustLnk={['Text-Dark', 'Text-Medium']}
 							text={item}
 						/>
