@@ -76,3 +76,25 @@
   border-width: 7px;
   margin-top: -7px;
 }
+
+.MsgDetails {
+	max-width: 100px;
+	overflow: hidden;
+	padding: 0.25rem;
+	background: var(--pale-grey);
+	text-align: center;
+	line-height: 1.25;
+	border: 1px solid var(--dark-color);
+	border-radius: 6px;
+}
+
+.Name {
+	font-size: 0.75rem;
+	font-weight: bold;
+	color: var(--dark-color);
+}
+
+.TimeDetails {
+	font-size: 0.6rem;
+	color: var(--dark-color);
+}

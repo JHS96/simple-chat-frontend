@@ -12,8 +12,10 @@ const SpeechBubble = props => {
 
 	return (
 		<div className={bubbleAlignment}>
-			<div>
-				<p>{props.senderName}</p>
+			<div className={styles.MsgDetails}>
+				<p className={styles.Name}>{props.senderName}</p>
+				<p className={styles.TimeDetails}>{props.date}</p>
+				<p className={styles.TimeDetails}>{props.time}</p>
 			</div>
 			<div
 				className={
