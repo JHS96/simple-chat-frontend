@@ -6,11 +6,15 @@ import styles from './ContextMenu.module.css';
 const ContextMenu = props => {
 	const [menuVisible, setMenuVisible] = useState(false);
 
+	const menuBtnClasses = menuVisible
+		? [styles.MenuBtn, styles.MenuBtnActive]
+		: [styles.MenuBtn];
+
 	if (props.menuStyle === 'Dots') {
 		return (
 			<React.Fragment>
 				<div
-					className={styles.MenuBtn}
+					className={menuBtnClasses.join(' ')}
 					onClick={() => setMenuVisible(() => !menuVisible)}>
 					<div className={styles.Dot}></div>
 					<div className={styles.Dot}></div>
@@ -29,7 +33,7 @@ const ContextMenu = props => {
 		return (
 			<React.Fragment>
 				<div
-					className={styles.MenuBtn}
+					className={menuBtnClasses.join(' ')}
 					onClick={() => setMenuVisible(!menuVisible)}>
 					<div className={styles.LineLeft}></div>
 					<div className={styles.LineRight}></div>

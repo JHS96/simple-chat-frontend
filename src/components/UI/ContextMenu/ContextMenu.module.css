@@ -11,9 +11,9 @@
 	z-index: 2;
 }
 
-/* .MenuBtn:hover * {
-	background: blue;
-} */
+.MenuBtnActive > div {
+	background: red;
+}
 
 .DotMenu {
 	margin-top: 10px;
