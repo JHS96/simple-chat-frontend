@@ -1,3 +1,11 @@
+.MainArea {
+	position: fixed;
+	top: 58px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
 .Header {
 	color: var(--primary-color);
 }
@@ -15,13 +23,14 @@
 }
 
 .NameTagArea {
+	width: 455px;
 	background: var(--primary-color);
-	overflow-x: none;
+	overflow-y: scroll;
 }
 
 .MsgArea {
 	width: 1200px;
 	padding: 0.5rem;
 	background: #fff;
-	overflow: none;
+	overflow-y: scroll;
 }

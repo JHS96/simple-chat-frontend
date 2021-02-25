@@ -59,7 +59,7 @@ const Conversations = () => {
 	};
 
 	return (
-		<div>
+		<div className={styles.MainArea}>
 			{error ? (
 				<Modal
 					visible={error}

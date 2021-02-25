@@ -14,6 +14,8 @@
 	--error-highlight-color: #ff5151;
 	--pale-grey: #e9e9e9;
 	--warning-color: #fc7307;
+	--safe-color: #9acd32;
+	--safe-color-highlight: #b4f13a;
 }
 
 body {

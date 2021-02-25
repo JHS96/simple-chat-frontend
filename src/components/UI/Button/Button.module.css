@@ -48,6 +48,16 @@ input[type='submit']:not(.Btn-Disabled) {
 	color: var(--secondary-grey);
 }
 
+.Btn-Safe {
+	background: var(--safe-color);
+	color: var(--primary-color);
+}
+
+.Btn-Safe:hover {
+	background: var(--safe-color-highlight);
+	color: #fff;
+}
+
 .Btn-Disabled {
 	background: var(--pale-grey);
 	color: #bbb;
