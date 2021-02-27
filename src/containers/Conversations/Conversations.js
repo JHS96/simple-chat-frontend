@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { useHttpClient } from '../../custom_hooks/http-hook';
@@ -17,6 +17,16 @@ const Conversations = () => {
 	const user = useSelector(state => state.user);
 	const conversations = useSelector(state => state.conversations);
 	const { sendRequest, isLoading, error, clearError } = useHttpClient();
+	const [userInput, setUserInput] = useState('');
+	// Below state and helper function are only a utilitarian to prevent
+	// the LoadingIndicator from being displayed every time a message is sent.
+	const [loaderToDisplay, setLoaderToDisplay] = useState(true);
+	const displayLoadingIndicator = () => {
+		if (loaderToDisplay && isLoading) {
+			return true;
+		}
+		return false;
+	};
 
 	useEffect(() => {
 		const getConversations = async () => {
@@ -32,6 +42,7 @@ const Conversations = () => {
 						response.conversations
 					)
 				);
+				setLoaderToDisplay(false);
 			} catch (err) {
 				console.log(err);
 			}
@@ -49,8 +60,41 @@ const Conversations = () => {
 			);
 			dispatch(
 				allActions.conversationActions.selectConversation(
-					response.conversationId,
+					conversationId,
+					response.conversation.contactId,
+					response.conversation.contactsConversationId,
 					response.conversation.thread
+				)
+			);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const sendMessageHandler = async (
+		msgReceiverId,
+		receiverConversationId,
+		conversationId
+	) => {
+		const body = JSON.stringify({
+			msgReceiverId: msgReceiverId,
+			receiverConversationId: receiverConversationId,
+			senderConversationId: conversationId,
+			msgBody: userInput
+		});
+		try {
+			const response = await sendRequest(
+				`${process.env.REACT_APP_BACKEND_URL}/messages/send-message`,
+				'POST',
+				body,
+				{
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${user.token}`
+				}
+			);
+			dispatch(
+				allActions.conversationActions.updateThread(
+					response.updatedConversation.thread
 				)
 			);
 		} catch (err) {
@@ -91,12 +135,16 @@ const Conversations = () => {
 					))}
 				</div>
 				<div className={styles.MsgArea}>
-					{isLoading ? (
+					{displayLoadingIndicator() ? (
 						<LoadingIndicator size='LoaderLarge' />
 					) : (
 						<Thread
 							msgArr={conversations.thread}
+							sendMsgHandler={sendMessageHandler}
+							setUserInput={setUserInput}
 							conversationId={conversations.selectedConversationId}
+							msgReceiverId={conversations.msgReceiverId}
+							receiverConversationId={conversations.receiverConversationId}
 						/>
 					)}
 				</div>

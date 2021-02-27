@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import SpeechBubble from '../UI/SpeechBubble/SpeechBubble';
 import Button from '../UI/Button/Button';
 import styles from './Thread.module.css';
 
 const Thread = props => {
-	const [userInput, setUserInput] = useState('');
-
 	if (props.msgArr.length > 0) {
 		return (
 			<React.Fragment>
@@ -25,13 +23,19 @@ const Thread = props => {
 						type='textarea'
 						className={styles.MsgInput}
 						placeholder='Write a message here...'
-						value={userInput}
-						onChange={event => setUserInput(event.target.value)}
+						value={props.userInput}
+						onChange={event => props.setUserInput(event.target.value)}
 					/>
 					<Button
 						cssForButton={['Btn-Safe', 'Btn-Medium']}
 						value='Send'
-						clicked={() => console.log(userInput)}
+						clicked={() =>
+							props.sendMsgHandler(
+								props.msgReceiverId,
+								props.receiverConversationId,
+								props.conversationId
+							)
+						}
 					/>
 				</div>
 			</React.Fragment>

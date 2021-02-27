@@ -3,6 +3,8 @@ import * as actionTypes from '../actionTypes';
 const initialState = {
 	conversations: [],
 	selectedConversationId: null,
+	msgReceiverId: null,
+	receiverConversationId: null,
 	thread: []
 };
 
@@ -17,6 +19,13 @@ const conversations = (state = initialState, action) => {
 			return {
 				...state,
 				selectedConversationId: action.selectedConversationId,
+				msgReceiverId: action.msgReceiverId,
+				receiverConversationId: action.receiverConversationId,
+				thread: action.thread
+			};
+		case actionTypes.UPDATE_THREAD:
+			return {
+				...state,
 				thread: action.thread
 			};
 		case actionTypes.DELETE_MESSAGE ||
