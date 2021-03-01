@@ -1,11 +1,11 @@
 .MsgInputForm {
   position: absolute;
-  bottom: 0.5%;
-  right: 2%;
+  bottom: 0;
+  right: 10%;
   display: flex;
   align-items: center;
-  min-width: 70.5%;
-  max-width: 70.5%;
+  min-width: 60%;
+  max-width: 60%;
   height: 3rem;
   background: var(--pale-grey);
 }

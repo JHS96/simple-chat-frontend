@@ -23,7 +23,7 @@
 }
 
 .NameTagArea {
-	width: 300px;
+	width: 270px;
 	background: var(--primary-color);
 	overflow-y: scroll;
 }

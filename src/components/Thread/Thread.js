@@ -40,11 +40,7 @@ const Thread = props => {
 							value={props.userInput}
 							onChange={event => props.setUserInput(event.target.value)}
 						/>
-						<Button
-							cssForButton={['Btn-Safe', 'Btn-Medium']}
-							value='Send'
-							clicked={() => submitMsgHandler()}
-						/>
+						<Button cssForButton={['Btn-Safe', 'Btn-Medium']} value='Send' />
 					</form>
 				</div>
 			</React.Fragment>
