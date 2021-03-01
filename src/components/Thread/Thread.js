@@ -5,6 +5,17 @@ import Button from '../UI/Button/Button';
 import styles from './Thread.module.css';
 
 const Thread = props => {
+	const submitMsgHandler = event => {
+		if (event) {
+			event.preventDefault();
+		}
+		props.sendMsgHandler(
+			props.msgReceiverId,
+			props.receiverConversationId,
+			props.conversationId
+		);
+	};
+
 	if (props.msgArr.length > 0) {
 		return (
 			<React.Fragment>
@@ -18,25 +29,23 @@ const Thread = props => {
 						{msg.message}
 					</SpeechBubble>
 				))}
-				<div className={styles.MsgInputContainer}>
-					<input
-						type='textarea'
-						className={styles.MsgInput}
-						placeholder='Write a message here...'
-						value={props.userInput}
-						onChange={event => props.setUserInput(event.target.value)}
-					/>
-					<Button
-						cssForButton={['Btn-Safe', 'Btn-Medium']}
-						value='Send'
-						clicked={() =>
-							props.sendMsgHandler(
-								props.msgReceiverId,
-								props.receiverConversationId,
-								props.conversationId
-							)
-						}
-					/>
+				<div>
+					<form
+						className={styles.MsgInputForm}
+						onSubmit={event => submitMsgHandler(event)}>
+						<input
+							type='textarea'
+							className={styles.MsgInput}
+							placeholder='Write a message here...'
+							value={props.userInput}
+							onChange={event => props.setUserInput(event.target.value)}
+						/>
+						<Button
+							cssForButton={['Btn-Safe', 'Btn-Medium']}
+							value='Send'
+							clicked={() => submitMsgHandler()}
+						/>
+					</form>
 				</div>
 			</React.Fragment>
 		);

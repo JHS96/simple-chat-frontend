@@ -23,13 +23,13 @@
 }
 
 .NameTagArea {
-	width: 455px;
+	width: 300px;
 	background: var(--primary-color);
 	overflow-y: scroll;
 }
 
 .MsgArea {
-	width: 1200px;
+	width: 900px;
 	padding: 0.5rem;
 	background: #fff;
 	overflow-y: scroll;

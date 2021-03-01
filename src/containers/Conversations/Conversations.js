@@ -28,6 +28,14 @@ const Conversations = () => {
 		return false;
 	};
 
+	// Automatically scroll to bottom of conversation thread after set time (500ms in this case);
+	setTimeout(() => {
+		const msgAreaDiv = document.getElementById('msgArea');
+		if (msgAreaDiv) {
+			msgAreaDiv.scrollTop = msgAreaDiv.scrollHeight;
+		}
+	}, 250);
+
 	useEffect(() => {
 		const getConversations = async () => {
 			try {
@@ -100,6 +108,7 @@ const Conversations = () => {
 		} catch (err) {
 			console.log(err);
 		}
+		setUserInput('');
 	};
 
 	return (
@@ -134,7 +143,7 @@ const Conversations = () => {
 						/>
 					))}
 				</div>
-				<div className={styles.MsgArea}>
+				<div className={styles.MsgArea} id='msgArea'>
 					{displayLoadingIndicator() ? (
 						<LoadingIndicator size='LoaderLarge' />
 					) : (
@@ -145,6 +154,7 @@ const Conversations = () => {
 							conversationId={conversations.selectedConversationId}
 							msgReceiverId={conversations.msgReceiverId}
 							receiverConversationId={conversations.receiverConversationId}
+							userInput={userInput}
 						/>
 					)}
 				</div>
