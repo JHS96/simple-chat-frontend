@@ -16,19 +16,31 @@ const Thread = props => {
 		);
 	};
 
-	if (props.msgArr.length > 0) {
-		return (
-			<React.Fragment>
-				{props.msgArr.map(msg => (
-					<SpeechBubble
-						key={msg._id}
-						bubbleAlignRight={msg.senderName === 'Me' ? true : false}
-						senderName={msg.senderName}
-						date={new Date(msg.createdAt).toLocaleDateString()}
-						time={new Date(msg.createdAt).toLocaleTimeString()}>
-						{msg.message}
-					</SpeechBubble>
-				))}
+	return (
+		<React.Fragment>
+			{!props.conversationSelected && <h2>No chat selected...</h2>}
+			{props.conversationSelected && props.msgArr.length === 0 && (
+				<h2>No messages to display...</h2>
+			)}
+			{props.msgArr.length > 0 && (
+				<div>
+					{props.msgArr.map(msg => (
+						<SpeechBubble
+							key={msg._id}
+							bubbleAlignRight={
+								msg.senderName === props.userName ? true : false
+							}
+							senderName={
+								msg.senderName === props.userName ? 'Me' : msg.senderName
+							}
+							date={new Date(msg.createdAt).toLocaleDateString()}
+							time={new Date(msg.createdAt).toLocaleTimeString()}>
+							{msg.message}
+						</SpeechBubble>
+					))}
+				</div>
+			)}
+			{props.conversationSelected && (
 				<div>
 					<form
 						className={styles.MsgInputForm}
@@ -43,9 +55,9 @@ const Thread = props => {
 						<Button cssForButton={['Btn-Safe', 'Btn-Medium']} value='Send' />
 					</form>
 				</div>
-			</React.Fragment>
-		);
-	} else return null;
+			)}
+		</React.Fragment>
+	);
 };
 
 export default Thread;

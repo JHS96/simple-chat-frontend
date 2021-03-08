@@ -29,10 +29,18 @@ const updateThread = thread => {
 	};
 };
 
+const addMsgToThread = msg => {
+	return {
+		type: actionTypes.ADD_MSG_TO_THREAD,
+		msg: msg
+	};
+};
+
 const conversationActions = {
 	setConversations,
 	selectConversation,
-	updateThread
+	updateThread,
+	addMsgToThread
 };
 
 export default conversationActions;

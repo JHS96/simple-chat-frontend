@@ -28,6 +28,11 @@ const conversations = (state = initialState, action) => {
 				...state,
 				thread: action.thread
 			};
+		case actionTypes.ADD_MSG_TO_THREAD:
+			return {
+				...state,
+				thread: [...state.thread, action.msg]
+			};
 		case actionTypes.DELETE_MESSAGE ||
 			actionTypes.DELETE_MESSAGE_FOR_BOTH ||
 			actionTypes.STAR_MESSAGE:

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import openSocket from 'socket.io-client';
 
 import { useHttpClient } from '../../custom_hooks/http-hook';
 import Modal from '../../components/Modal/Modal';
@@ -18,6 +19,10 @@ const Conversations = () => {
 	const conversations = useSelector(state => state.conversations);
 	const { sendRequest, isLoading, error, clearError } = useHttpClient();
 	const [userInput, setUserInput] = useState('');
+	const [chatSelected, setChatSelected] = useState(false);
+	// Below state prevents unneccesary extra renders of sent message caused by
+	// potatntial extra rerender cycles.
+	const [messageSent, setMessageSent] = useState(false);
 	// Below state and helper function are only a utilitarian to prevent
 	// the LoadingIndicator from being displayed every time a message is sent.
 	const [loaderToDisplay, setLoaderToDisplay] = useState(true);
@@ -29,12 +34,16 @@ const Conversations = () => {
 	};
 
 	// Automatically scroll to bottom of conversation thread after set time (500ms in this case);
-	setTimeout(() => {
+	const scrollTimer = setTimeout(() => {
 		const msgAreaDiv = document.getElementById('msgArea');
 		if (msgAreaDiv) {
 			msgAreaDiv.scrollTop = msgAreaDiv.scrollHeight;
 		}
 	}, 250);
+
+	useEffect(() => {
+		return clearTimeout(scrollTimer);
+	}, [scrollTimer]);
 
 	useEffect(() => {
 		const getConversations = async () => {
@@ -58,8 +67,22 @@ const Conversations = () => {
 		getConversations();
 	}, [sendRequest, user.token, dispatch]);
 
-	const getConversationHandler = async conversationId => {
+	const conversationHandler = async conversationId => {
 		try {
+			setChatSelected(true);
+
+			// Establish and handle socket.io connection.
+			const socket = openSocket(
+				`${process.env.REACT_APP_BACKEND_URL}?chatId=${conversationId}`
+			);
+			socket.on('new-message', data => {
+				if (!messageSent) {
+					dispatch(allActions.conversationActions.addMsgToThread(data.message));
+				}
+				setMessageSent(true);
+			});
+
+			// Get details of selected conversation.
 			const response = await sendRequest(
 				`${process.env.REACT_APP_BACKEND_URL}/messages/get-conversation/${conversationId}`,
 				'GET',
@@ -91,7 +114,7 @@ const Conversations = () => {
 			msgBody: userInput
 		});
 		try {
-			const response = await sendRequest(
+			await sendRequest(
 				`${process.env.REACT_APP_BACKEND_URL}/messages/send-message`,
 				'POST',
 				body,
@@ -99,11 +122,6 @@ const Conversations = () => {
 					'Content-Type': 'application/json',
 					Authorization: `Bearer ${user.token}`
 				}
-			);
-			dispatch(
-				allActions.conversationActions.updateThread(
-					response.updatedConversation.thread
-				)
 			);
 		} catch (err) {
 			console.log(err);
@@ -139,7 +157,7 @@ const Conversations = () => {
 									? DefaultAvatar
 									: chat.contactAvatarUrl
 							}
-							clicked={() => getConversationHandler(chat._id)}
+							clicked={() => conversationHandler(chat._id)}
 						/>
 					))}
 				</div>
@@ -155,6 +173,8 @@ const Conversations = () => {
 							msgReceiverId={conversations.msgReceiverId}
 							receiverConversationId={conversations.receiverConversationId}
 							userInput={userInput}
+							userName={user.userName}
+							conversationSelected={chatSelected}
 						/>
 					)}
 				</div>
