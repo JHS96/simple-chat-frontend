@@ -11,6 +11,7 @@ const selectConversation = (
 	conversationId,
 	msgReceiverId,
 	receiverConversationId,
+	contactName,
 	thread
 ) => {
 	return {
@@ -18,6 +19,7 @@ const selectConversation = (
 		selectedConversationId: conversationId,
 		msgReceiverId: msgReceiverId,
 		receiverConversationId: receiverConversationId,
+		contactName: contactName,
 		thread: thread
 	};
 };

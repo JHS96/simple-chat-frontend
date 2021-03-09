@@ -18,9 +18,10 @@ const Thread = props => {
 
 	return (
 		<React.Fragment>
-			{!props.conversationSelected && <h2>No chat selected...</h2>}
+			{!props.conversationSelected && <h3>No chat selected...</h3>}
+			{props.conversationSelected && <h3>Chat with: {props.contactName}</h3>}
 			{props.conversationSelected && props.msgArr.length === 0 && (
-				<h2>No messages to display...</h2>
+				<h5>No messages to display...</h5>
 			)}
 			{props.msgArr.length > 0 && (
 				<div>

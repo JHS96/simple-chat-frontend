@@ -5,6 +5,7 @@ const initialState = {
 	selectedConversationId: null,
 	msgReceiverId: null,
 	receiverConversationId: null,
+	contactName: null,
 	thread: []
 };
 
@@ -21,6 +22,7 @@ const conversations = (state = initialState, action) => {
 				selectedConversationId: action.selectedConversationId,
 				msgReceiverId: action.msgReceiverId,
 				receiverConversationId: action.receiverConversationId,
+				contactName: action.contactName,
 				thread: action.thread
 			};
 		case actionTypes.UPDATE_THREAD:

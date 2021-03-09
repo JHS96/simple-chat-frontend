@@ -94,6 +94,7 @@ const Conversations = () => {
 					conversationId,
 					response.conversation.contactId,
 					response.conversation.contactsConversationId,
+					response.conversation.contactName,
 					response.conversation.thread
 				)
 			);
@@ -175,6 +176,7 @@ const Conversations = () => {
 							userInput={userInput}
 							userName={user.userName}
 							conversationSelected={chatSelected}
+							contactName={conversations.contactName}
 						/>
 					)}
 				</div>

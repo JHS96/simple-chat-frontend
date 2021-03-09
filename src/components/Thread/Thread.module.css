@@ -1,20 +1,25 @@
-h2 {
-  text-align: center;
-  color: var(--primary-color);
+h3 {
+	text-align: center;
+	color: var(--highlight-color);
+}
+
+h5 {
+	text-align: center;
+	color: var(--primary-color);
 }
 
 .MsgInputForm {
-  position: absolute;
-  bottom: 0;
-  right: 10%;
-  display: flex;
-  align-items: center;
-  min-width: 60%;
-  max-width: 60%;
-  height: 3rem;
-  background: var(--pale-grey);
+	position: absolute;
+	bottom: 0;
+	right: 10%;
+	display: flex;
+	align-items: center;
+	min-width: 60%;
+	max-width: 60%;
+	height: 3rem;
+	background: var(--pale-grey);
 }
 
 .MsgInput {
-  background: #fff;
+	background: #fff;
 }
