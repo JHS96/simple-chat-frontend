@@ -4,7 +4,11 @@ import styles from './SpeechBubble.module.css';
 
 const SpeechBubble = props => {
 	// Temporary menuItems array for testing only.
-	const menuItems = ['Delete Message', 'Delete for Both', 'Star Message'];
+	const menuItems = [
+		{ label: 'Delete Message', handler: props.deleteMsgHandler },
+		{ label: 'Delete for Both', handler: props.deleteMsgForBothHandler },
+		{ label: 'Star Message', handler: props.starMsgHandler }
+	];
 
 	const bubbleAlignment = props.bubbleAlignRight
 		? styles.AlignRight
@@ -26,9 +30,10 @@ const SpeechBubble = props => {
 					menuStyle='Arrow'
 					menuItems={menuItems.map(item => (
 						<CustomLink
-							key={props.senderName + item} // TODO Create better keys when menuItems are implemented
+							key={item.label + ' ' + props.msgId}
 							cssForCustLnk={['Text-Dark', 'Text-Medium']}
-							text={item}
+							text={item.label}
+							clicked={() => item.handler(props.conversationId, props.msgId)}
 						/>
 					))}
 				/>

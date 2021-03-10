@@ -38,11 +38,19 @@ const addMsgToThread = msg => {
 	};
 };
 
+const deleteMessage = msgId => {
+	return {
+		type: actionTypes.DELETE_MESSAGE,
+		msgId: msgId
+	};
+};
+
 const conversationActions = {
 	setConversations,
 	selectConversation,
 	updateThread,
-	addMsgToThread
+	addMsgToThread,
+	deleteMessage
 };
 
 export default conversationActions;

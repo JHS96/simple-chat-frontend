@@ -35,12 +35,18 @@ const conversations = (state = initialState, action) => {
 				...state,
 				thread: [...state.thread, action.msg]
 			};
-		case actionTypes.DELETE_MESSAGE ||
-			actionTypes.DELETE_MESSAGE_FOR_BOTH ||
-			actionTypes.STAR_MESSAGE:
+		case actionTypes.DELETE_MESSAGE:
 			return {
 				...state,
-				thread: action.thread
+				thread: state.thread.filter(msg => msg._id !== action.msgId)
+			};
+		case actionTypes.DELETE_MESSAGE_FOR_BOTH:
+			return {
+				...state
+			};
+		case actionTypes.STAR_MESSAGE:
+			return {
+				...state
 			};
 		default:
 			return state;

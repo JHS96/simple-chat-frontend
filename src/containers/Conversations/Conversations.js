@@ -76,7 +76,7 @@ const Conversations = () => {
 				`${process.env.REACT_APP_BACKEND_URL}?chatId=${conversationId}`
 			);
 			socket.on('new-message', data => {
-				if (!messageSent) {
+				if (!messageSent && data.message.msgCopyOwner === user.userId) {
 					dispatch(allActions.conversationActions.addMsgToThread(data.message));
 				}
 				setMessageSent(true);
@@ -115,7 +115,7 @@ const Conversations = () => {
 			msgBody: userInput
 		});
 		try {
-			await sendRequest(
+			const response = await sendRequest(
 				`${process.env.REACT_APP_BACKEND_URL}/messages/send-message`,
 				'POST',
 				body,
@@ -124,10 +124,36 @@ const Conversations = () => {
 					Authorization: `Bearer ${user.token}`
 				}
 			);
+			dispatch(
+				allActions.conversationActions.addMsgToThread(response.senderMsgCopy)
+			);
 		} catch (err) {
 			console.log(err);
 		}
 		setUserInput('');
+	};
+
+	const deleteMsgHandler = async (conversationId, messageId) => {
+		const body = JSON.stringify({
+			conversationId: conversationId,
+			messageId: messageId
+		});
+		try {
+			await sendRequest(
+				`${process.env.REACT_APP_BACKEND_URL}/messages/delete-message`,
+				'DELETE',
+				body,
+				{
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${user.token}`
+				}
+			);
+			dispatch(allActions.conversationActions.deleteMessage(messageId));
+		} catch (err) {
+			console.log(err);
+		}
+		// console.log(conversationId);
+		// console.log(messageId);
 	};
 
 	return (
@@ -177,6 +203,7 @@ const Conversations = () => {
 							userName={user.userName}
 							conversationSelected={chatSelected}
 							contactName={conversations.contactName}
+							deleteMsgHandler={deleteMsgHandler}
 						/>
 					)}
 				</div>

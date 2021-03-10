@@ -28,6 +28,7 @@ const Thread = props => {
 					{props.msgArr.map(msg => (
 						<SpeechBubble
 							key={msg._id}
+							msgId={msg._id}
 							bubbleAlignRight={
 								msg.senderName === props.userName ? true : false
 							}
@@ -35,7 +36,9 @@ const Thread = props => {
 								msg.senderName === props.userName ? 'Me' : msg.senderName
 							}
 							date={new Date(msg.createdAt).toLocaleDateString()}
-							time={new Date(msg.createdAt).toLocaleTimeString()}>
+							time={new Date(msg.createdAt).toLocaleTimeString()}
+							conversationId={props.conversationId}
+							deleteMsgHandler={props.deleteMsgHandler}>
 							{msg.message}
 						</SpeechBubble>
 					))}
