@@ -34,3 +34,7 @@
 	background: #fff;
 	overflow-y: scroll;
 }
+
+.BottomSpacer {
+	height: 7rem;
+}

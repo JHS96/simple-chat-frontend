@@ -45,12 +45,21 @@ const deleteMessage = msgId => {
 	};
 };
 
+const updateMessage = (msgId, alteredMsg) => {
+	return {
+		type: actionTypes.UPDATE_MESSAGE,
+		msgId: msgId,
+		alteredMsg: alteredMsg
+	};
+};
+
 const conversationActions = {
 	setConversations,
 	selectConversation,
 	updateThread,
 	addMsgToThread,
-	deleteMessage
+	deleteMessage,
+	updateMessage
 };
 
 export default conversationActions;

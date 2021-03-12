@@ -37,8 +37,10 @@ const Thread = props => {
 							}
 							date={new Date(msg.createdAt).toLocaleDateString()}
 							time={new Date(msg.createdAt).toLocaleTimeString()}
+							timeInMilliSeconds={new Date(msg.createdAt).getTime()}
 							conversationId={props.conversationId}
-							deleteMsgHandler={props.deleteMsgHandler}>
+							deleteMsgHandler={props.deleteMsgHandler}
+							deleteMsgForBothHandler={props.deleteMsgForBothHandler}>
 							{msg.message}
 						</SpeechBubble>
 					))}

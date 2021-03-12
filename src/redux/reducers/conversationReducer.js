@@ -16,6 +16,7 @@ const conversations = (state = initialState, action) => {
 				...state,
 				conversations: action.conversations
 			};
+
 		case actionTypes.SELECT_CONVERSATION:
 			return {
 				...state,
@@ -25,25 +26,38 @@ const conversations = (state = initialState, action) => {
 				contactName: action.contactName,
 				thread: action.thread
 			};
+
 		case actionTypes.UPDATE_THREAD:
 			return {
 				...state,
 				thread: action.thread
 			};
+
 		case actionTypes.ADD_MSG_TO_THREAD:
 			return {
 				...state,
 				thread: [...state.thread, action.msg]
 			};
+
 		case actionTypes.DELETE_MESSAGE:
 			return {
 				...state,
 				thread: state.thread.filter(msg => msg._id !== action.msgId)
 			};
-		case actionTypes.DELETE_MESSAGE_FOR_BOTH:
+
+		case actionTypes.UPDATE_MESSAGE:
+			const msgToUpdateIdx = state.thread.findIndex(
+				msg => msg._id === action.msgId
+			);
+			const updatedThread = [...state.thread];
+			if (msgToUpdateIdx >= 0) {
+				updatedThread[msgToUpdateIdx].message = action.alteredMsg;
+			}
 			return {
-				...state
+				...state,
+				thread: updatedThread
 			};
+
 		case actionTypes.STAR_MESSAGE:
 			return {
 				...state

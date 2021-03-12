@@ -81,6 +81,16 @@ const Conversations = () => {
 				}
 				setMessageSent(true);
 			});
+			socket.on('alter-message', data => {
+				if (data.alteredMsg.msgCopyOwner === user.userId) {
+					dispatch(
+						allActions.conversationActions.updateMessage(
+							data.alteredMsg._id,
+							'Message deleted my sender...'
+						)
+					);
+				}
+			});
 
 			// Get details of selected conversation.
 			const response = await sendRequest(
@@ -152,8 +162,27 @@ const Conversations = () => {
 		} catch (err) {
 			console.log(err);
 		}
-		// console.log(conversationId);
-		// console.log(messageId);
+	};
+
+	const deleteMsgForBothHandler = async (conversationId, messageId) => {
+		const body = JSON.stringify({
+			conversationId: conversationId,
+			messageId: messageId
+		});
+		try {
+			await sendRequest(
+				`${process.env.REACT_APP_BACKEND_URL}/messages/delete-message-for-both`,
+				'DELETE',
+				body,
+				{
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${user.token}`
+				}
+			);
+		} catch (err) {
+			console.log(err);
+		}
+		dispatch(allActions.conversationActions.deleteMessage(messageId));
 	};
 
 	return (
@@ -204,8 +233,10 @@ const Conversations = () => {
 							conversationSelected={chatSelected}
 							contactName={conversations.contactName}
 							deleteMsgHandler={deleteMsgHandler}
+							deleteMsgForBothHandler={deleteMsgForBothHandler}
 						/>
 					)}
+					<div className={styles.BottomSpacer}></div>
 				</div>
 			</div>
 		</div>
