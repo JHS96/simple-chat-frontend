@@ -53,13 +53,21 @@ const updateMessage = (msgId, alteredMsg) => {
 	};
 };
 
+const starUnstarMessage = msgId => {
+	return {
+		type: actionTypes.STAR_UNSTAR_MESSAGE,
+		msgId: msgId
+	};
+};
+
 const conversationActions = {
 	setConversations,
 	selectConversation,
 	updateThread,
 	addMsgToThread,
 	deleteMessage,
-	updateMessage
+	updateMessage,
+	starUnstarMessage
 };
 
 export default conversationActions;

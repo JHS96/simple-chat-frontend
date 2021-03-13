@@ -10,6 +10,8 @@ const initialState = {
 };
 
 const conversations = (state = initialState, action) => {
+	const threadCopy = [...state.thread];
+
 	switch (action.type) {
 		case actionTypes.SET_CONVERSATIONS:
 			return {
@@ -49,18 +51,25 @@ const conversations = (state = initialState, action) => {
 			const msgToUpdateIdx = state.thread.findIndex(
 				msg => msg._id === action.msgId
 			);
-			const updatedThread = [...state.thread];
 			if (msgToUpdateIdx >= 0) {
-				updatedThread[msgToUpdateIdx].message = action.alteredMsg;
+				threadCopy[msgToUpdateIdx].message = action.alteredMsg;
 			}
 			return {
 				...state,
-				thread: updatedThread
+				thread: threadCopy
 			};
 
-		case actionTypes.STAR_MESSAGE:
+		case actionTypes.STAR_UNSTAR_MESSAGE:
+			const msgToStarOrUnstar = state.thread.findIndex(
+				msg => msg._id === action.msgId
+			);
+			if (msgToStarOrUnstar >= 0) {
+				threadCopy[msgToStarOrUnstar].isStarred = !threadCopy[msgToStarOrUnstar]
+					.isStarred;
+			}
 			return {
-				...state
+				...state,
+				thread: threadCopy
 			};
 		default:
 			return state;

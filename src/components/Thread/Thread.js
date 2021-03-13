@@ -39,9 +39,12 @@ const Thread = props => {
 							time={new Date(msg.createdAt).toLocaleTimeString()}
 							timeInMilliSeconds={new Date(msg.createdAt).getTime()}
 							conversationId={props.conversationId}
+							isStarred={msg.isStarred}
 							deleteMsgHandler={props.deleteMsgHandler}
-							deleteMsgForBothHandler={props.deleteMsgForBothHandler}>
-							{msg.message}
+							deleteMsgForBothHandler={props.deleteMsgForBothHandler}
+							starUnstarHandler={props.starUnstarHandler}>
+							{msg.isStarred ? <div className={styles.Star}></div> : null}
+							<p>{msg.message}</p>
 						</SpeechBubble>
 					))}
 				</div>

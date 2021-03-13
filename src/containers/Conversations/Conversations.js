@@ -185,6 +185,24 @@ const Conversations = () => {
 		dispatch(allActions.conversationActions.deleteMessage(messageId));
 	};
 
+	const starUnstarHandler = async (conversationId, messageId) => {
+		const body = JSON.stringify({ messageId: messageId });
+		try {
+			sendRequest(
+				`${process.env.REACT_APP_BACKEND_URL}/messages/toggle-star`,
+				'POST',
+				body,
+				{
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${user.token}`
+				}
+			);
+		} catch (err) {
+			console.log(err);
+		}
+		dispatch(allActions.conversationActions.starUnstarMessage(messageId));
+	};
+
 	return (
 		<div className={styles.MainArea}>
 			{error ? (
@@ -234,6 +252,7 @@ const Conversations = () => {
 							contactName={conversations.contactName}
 							deleteMsgHandler={deleteMsgHandler}
 							deleteMsgForBothHandler={deleteMsgForBothHandler}
+							starUnstarHandler={starUnstarHandler}
 						/>
 					)}
 					<div className={styles.BottomSpacer}></div>

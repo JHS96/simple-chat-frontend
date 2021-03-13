@@ -3,17 +3,19 @@ import CustomLink from '../CustomLink/CustomLink';
 import styles from './SpeechBubble.module.css';
 
 const SpeechBubble = props => {
+	const starOrUnstar = props.isStarred ? 'Unstar Message' : 'Star Message';
+
 	const menuItems =
 		props.timeInMilliSeconds + 1000 * 60 * 60 > Date.now() &&
 		props.senderName === 'Me'
 			? [
 					{ label: 'Delete Message', handler: props.deleteMsgHandler },
 					{ label: 'Delete for Both', handler: props.deleteMsgForBothHandler },
-					{ label: 'Star Message', handler: props.starMsgHandler }
+					{ label: starOrUnstar, handler: props.starUnstarHandler }
 			  ]
 			: [
 					{ label: 'Delete Message', handler: props.deleteMsgHandler },
-					{ label: 'Star Message', handler: props.starMsgHandler }
+					{ label: starOrUnstar, handler: props.starUnstarHandler }
 			  ];
 
 	const bubbleAlignment = props.bubbleAlignRight
