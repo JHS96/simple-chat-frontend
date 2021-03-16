@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import openSocket from 'socket.io-client';
 
@@ -20,9 +20,8 @@ const Conversations = () => {
 	const { sendRequest, isLoading, error, clearError } = useHttpClient();
 	const [userInput, setUserInput] = useState('');
 	const [chatSelected, setChatSelected] = useState(false);
-	// Below state prevents unneccesary extra renders of sent message caused by
-	// potatntial extra rerender cycles.
-	const [messageSent, setMessageSent] = useState(false);
+	const chatId = useRef();
+
 	// Below state and helper function are only a utilitarian to prevent
 	// the LoadingIndicator from being displayed every time a message is sent.
 	const [loaderToDisplay, setLoaderToDisplay] = useState(true);
@@ -68,6 +67,7 @@ const Conversations = () => {
 	}, [sendRequest, user.token, dispatch]);
 
 	const conversationHandler = async conversationId => {
+		chatId.current = conversationId;
 		try {
 			setChatSelected(true);
 
@@ -76,10 +76,12 @@ const Conversations = () => {
 				`${process.env.REACT_APP_BACKEND_URL}?chatId=${conversationId}`
 			);
 			socket.on('new-message', data => {
-				if (!messageSent && data.message.msgCopyOwner === user.userId) {
+				if (
+					data.message.msgCopyOwner === user.userId &&
+					data.message.belongsToConversationId === chatId.current
+				) {
 					dispatch(allActions.conversationActions.addMsgToThread(data.message));
 				}
-				setMessageSent(true);
 			});
 			socket.on('alter-message', data => {
 				if (data.alteredMsg.msgCopyOwner === user.userId) {
