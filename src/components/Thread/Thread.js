@@ -2,6 +2,7 @@ import React from 'react';
 
 import SpeechBubble from '../UI/SpeechBubble/SpeechBubble';
 import Button from '../UI/Button/Button';
+import LoadingIndicator from '../UI/LoadingIndicator/LoadingIndicator';
 import styles from './Thread.module.css';
 
 const Thread = props => {
@@ -15,6 +16,12 @@ const Thread = props => {
 			props.conversationId
 		);
 	};
+
+	const btn = props.isLoading ? (
+		<LoadingIndicator size='LoaderMedium' />
+	) : (
+		<Button cssForButton={['Btn-Safe', 'Btn-Medium']} value='Send' />
+	);
 
 	return (
 		<React.Fragment>
@@ -61,7 +68,8 @@ const Thread = props => {
 							value={props.userInput}
 							onChange={event => props.setUserInput(event.target.value)}
 						/>
-						<Button cssForButton={['Btn-Safe', 'Btn-Medium']} value='Send' />
+						{/* <Button cssForButton={['Btn-Safe', 'Btn-Medium']} value='Send' /> */}
+						{btn}
 					</form>
 				</div>
 			)}

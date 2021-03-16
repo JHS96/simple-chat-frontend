@@ -243,6 +243,7 @@ const Conversations = () => {
 					) : (
 						<Thread
 							msgArr={conversations.thread}
+							isLoading={isLoading}
 							sendMsgHandler={sendMessageHandler}
 							setUserInput={setUserInput}
 							conversationId={conversations.selectedConversationId}
