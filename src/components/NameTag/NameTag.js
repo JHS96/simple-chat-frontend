@@ -11,9 +11,16 @@ const NameTag = props => {
 		'Unblock User'
 	];
 
+	const containerClasses = [styles.Container];
+	const tagClasses = [styles.Tag];
+	if (props.nameTagId === props.curChatId) {
+		containerClasses.push(styles.NameTagActive);
+		tagClasses.push(styles.NameTagActive);
+	}
+
 	return (
-		<div className={styles.Container}>
-			<div className={styles.Tag} onClick={props.clicked}>
+		<div className={containerClasses.join(' ')}>
+			<div className={tagClasses.join(' ')} onClick={props.clicked}>
 				<img
 					src={props.contactAvatarUrl}
 					alt='avatar'

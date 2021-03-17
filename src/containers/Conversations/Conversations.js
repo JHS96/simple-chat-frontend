@@ -226,6 +226,8 @@ const Conversations = () => {
 					{conversations.conversations.map(chat => (
 						<NameTag
 							key={chat._id}
+							nameTagId={chat._id}
+							curChatId={chatId.current}
 							name={chat.contactName}
 							contactAvatarUrl={
 								chat.contactAvatarUrl ===
