@@ -21,6 +21,8 @@ const Conversations = () => {
 	const [userInput, setUserInput] = useState('');
 	const [chatSelected, setChatSelected] = useState(false);
 	const chatId = useRef();
+	const [openContextMenuId, setOpenContextMenuId] = useState();
+	const [shouldCloseMenu, setShouldCloseMenu] = useState(false);
 
 	// Below state and helper function are only a utilitarian to prevent
 	// the LoadingIndicator from being displayed every time a message is sent.
@@ -41,7 +43,7 @@ const Conversations = () => {
 	}, 250);
 
 	useEffect(() => {
-		return clearTimeout(scrollTimer);
+		return () => clearTimeout(scrollTimer);
 	}, [scrollTimer]);
 
 	useEffect(() => {
@@ -65,6 +67,27 @@ const Conversations = () => {
 		};
 		getConversations();
 	}, [sendRequest, user.token, dispatch]);
+
+	// Register event listener on window to allow closing of open context menu when
+	// user clicks away from menu. Also clean up event listeners as required.
+	useEffect(() => {
+		window.addEventListener('click', closeContextMenu);
+		return () => window.removeEventListener('click', closeContextMenu);
+	});
+
+	// If an openContextMenuId is set then a context menu is open. If the next detected
+	// click event.target.id doesn't match the openContextMenuId, then let the component
+	// know that the menu should be closed.
+	// Then setShouldCloseMenu() to false again to reset the logic.
+	const closeContextMenu = e => {
+		if (openContextMenuId) {
+			if (!e.target.id || e.target.id !== openContextMenuId) {
+				setShouldCloseMenu(true);
+				setOpenContextMenuId(undefined);
+			}
+		}
+		setShouldCloseMenu(false);
+	};
 
 	const conversationHandler = async conversationId => {
 		chatId.current = conversationId;
@@ -236,6 +259,9 @@ const Conversations = () => {
 									: chat.contactAvatarUrl
 							}
 							clicked={() => conversationHandler(chat._id)}
+							setOpenContextMenuId={setOpenContextMenuId}
+							shouldCloseMenu={shouldCloseMenu}
+							setShouldCloseMenu={setShouldCloseMenu}
 						/>
 					))}
 				</div>
@@ -258,6 +284,9 @@ const Conversations = () => {
 							deleteMsgHandler={deleteMsgHandler}
 							deleteMsgForBothHandler={deleteMsgForBothHandler}
 							starUnstarHandler={starUnstarHandler}
+							setOpenContextMenuId={setOpenContextMenuId}
+							shouldCloseMenu={shouldCloseMenu}
+							setShouldCloseMenu={setShouldCloseMenu}
 						/>
 					)}
 					<div className={styles.BottomSpacer}></div>

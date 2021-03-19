@@ -29,6 +29,9 @@ const NameTag = props => {
 				<p className={styles.Name}>{props.name}</p>
 			</div>
 			<ContextMenu
+				id={props.nameTagId}
+				setOpenContextMenuId={props.setOpenContextMenuId}
+				shouldCloseMenu={props.shouldCloseMenu}
 				menuStyle='Dots'
 				menuItems={menuItems.map(item => (
 					<CustomLink

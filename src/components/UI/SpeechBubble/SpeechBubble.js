@@ -35,6 +35,9 @@ const SpeechBubble = props => {
 				}>
 				{props.children}
 				<ContextMenu
+					id={props.msgId}
+					setOpenContextMenuId={props.setOpenContextMenuId}
+					shouldCloseMenu={props.shouldCloseMenu}
 					menuStyle='Arrow'
 					menuItems={menuItems.map(item => (
 						<CustomLink

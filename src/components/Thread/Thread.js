@@ -47,6 +47,8 @@ const Thread = props => {
 							timeInMilliSeconds={new Date(msg.createdAt).getTime()}
 							conversationId={props.conversationId}
 							isStarred={msg.isStarred}
+							setOpenContextMenuId={props.setOpenContextMenuId}
+							shouldCloseMenu={props.shouldCloseMenu}
 							deleteMsgHandler={props.deleteMsgHandler}
 							deleteMsgForBothHandler={props.deleteMsgForBothHandler}
 							starUnstarHandler={props.starUnstarHandler}>
