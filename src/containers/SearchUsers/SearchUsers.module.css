@@ -1,0 +1,34 @@
+.Container {
+  width: 900px;
+  min-height: 83vh;
+  margin: auto;
+  background: #fff;
+  border-radius: 5px 5px 0 0;
+}
+
+.Heading {
+  padding: 0.5rem 0 0.5rem;
+  color: var(--primary-color);
+  background: var(--secondary-color);
+}
+
+.SearchForm {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.SearchTermInput {
+  width: 50%;
+}
+
+.Notice {
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--dark-color);
+}
+
+.SearchResults {
+  display: flex;
+  justify-content: space-evenly;
+}

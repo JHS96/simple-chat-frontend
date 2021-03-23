@@ -6,11 +6,11 @@ import classes from './NavigationItems.module.css';
 const NavigationItems = props => {
 	return (
 		<ul className={classes.NavigationItems}>
-			<NavItem link='page1' exact={true}>
-				Page 1
+			<NavItem link='conversations' exact={true}>
+				Chats
 			</NavItem>
-			<NavItem link='page2' exact={true}>
-				Page 2
+			<NavItem link='search-users' exact={true}>
+				Search Users
 			</NavItem>
 			<NavItem link='logout' exact={true}>
 				Log Out

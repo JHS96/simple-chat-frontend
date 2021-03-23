@@ -60,6 +60,12 @@ const starUnstarMessage = msgId => {
 	};
 };
 
+const resetConversationState = () => {
+	return {
+		type: actionTypes.RESET_CONVERSATIONS_STATE
+	};
+};
+
 const conversationActions = {
 	setConversations,
 	selectConversation,
@@ -67,7 +73,8 @@ const conversationActions = {
 	addMsgToThread,
 	deleteMessage,
 	updateMessage,
-	starUnstarMessage
+	starUnstarMessage,
+	resetConversationState
 };
 
 export default conversationActions;

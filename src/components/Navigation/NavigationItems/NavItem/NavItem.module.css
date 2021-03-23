@@ -18,5 +18,5 @@
 .NavItem a.active {
 	color: var(--highlight-color);
 	background: var(--secondary-color);
-	border-top: 4px solid var(--highlight-color);
+	border-top: 5px solid var(--highlight-color);
 }

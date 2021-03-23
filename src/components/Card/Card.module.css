@@ -1,0 +1,26 @@
+.Container {
+  width: 250px;
+  background: var(--secondary-color);
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px #ccc;
+}
+
+.ImageContainer {
+  display: flex;
+  justify-content: center;
+  background: #fff;
+  border-radius: 5px 5px 0 0;
+}
+
+.AvatarImg {
+  max-width: 250px;
+  max-height: 200px;
+}
+
+.UserName {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: var(--highlight-color);
+}

@@ -71,6 +71,18 @@ const conversations = (state = initialState, action) => {
 				...state,
 				thread: threadCopy
 			};
+
+		case actionTypes.RESET_CONVERSATIONS_STATE:
+			return {
+				...state,
+				conversations: [],
+				selectedConversationId: null,
+				msgReceiverId: null,
+				receiverConversationId: null,
+				contactName: null,
+				thread: []
+			};
+
 		default:
 			return state;
 	}
