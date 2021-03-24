@@ -3,6 +3,7 @@
   background: var(--secondary-color);
   border-radius: 5px;
   box-shadow: 1px 1px 3px #ccc;
+  text-align: center;
 }
 
 .ImageContainer {
