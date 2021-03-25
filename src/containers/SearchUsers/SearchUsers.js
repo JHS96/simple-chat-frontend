@@ -8,6 +8,7 @@ import Button from '../../components/UI/Button/Button';
 import Card from '../../components/Card/Card';
 import { useHttpClient } from '../../custom_hooks/http-hook';
 import allActions from '../../redux/actions';
+import DefaultAvatar from '../../assets/images/default-avatar.png';
 import styles from './SearchUsers.module.css';
 
 const SearchUsers = () => {
@@ -72,15 +73,12 @@ const SearchUsers = () => {
 				<Modal
 					visible={error || reqSentMsg}
 					header={error ? 'Whoops...' : 'Success...'}
-					btnClicked={() => clearModalHandler()}>
+					btnClicked={clearModalHandler}>
 					{error ? error : reqSentMsg}
 				</Modal>
 			)}
 			{(error || reqSentMsg) && (
-				<Backdrop
-					visible={error || reqSentMsg}
-					clicked={() => clearModalHandler()}
-				/>
+				<Backdrop visible={error || reqSentMsg} clicked={clearModalHandler} />
 			)}
 			<h1 className={styles.Heading}>Search Users</h1>
 			<div className={styles.Container}>
@@ -106,17 +104,22 @@ const SearchUsers = () => {
 					{!isLoading && !results.length && (
 						<p className={styles.Notice}>No search results to display...</p>
 					)}
-					{results.map(user => (
+					{results.map(res => (
 						<Card
-							key={user.id}
-							userName={user.name}
-							userId={user.id}
-							avatarUrl={user.avatarUrl}>
+							key={res.id}
+							userName={res.name}
+							userId={res.id}
+							avatarUrl={
+								res.avatarUrl === process.env.REACT_APP_DEFAULT_AVATAR ||
+								!res.avatarUrl
+									? DefaultAvatar
+									: res.avatarUrl
+							}>
 							<br />
 							<Button
 								value='Request Contact'
 								cssForButton={['Btn-Dark', 'Btn-Wide']}
-								clicked={e => requestContactHandler(e, user.id)}
+								clicked={e => requestContactHandler(e, res.id)}
 							/>
 						</Card>
 					))}

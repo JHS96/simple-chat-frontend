@@ -1,0 +1,26 @@
+.Container {
+	width: 900px;
+	min-height: 83vh;
+	margin: auto;
+	background: #fff;
+	border-radius: 5px 5px 0 0;
+}
+
+.Heading {
+	padding: 0.5rem 0 0.5rem;
+	color: var(--primary-color);
+	background: var(--secondary-color);
+}
+
+.Notice {
+	text-align: center;
+	font-size: 1.5rem;
+	color: var(--dark-color);
+}
+
+.SentRequests {
+	display: flex;
+	justify-content: space-evenly;
+	margin-top: 0.25rem;
+	padding-top: 1rem;
+}

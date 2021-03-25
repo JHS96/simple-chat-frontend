@@ -7,6 +7,7 @@ import LogoutPage from './components/LogoutPage/LogoutPage';
 import Auth from './containers/Auth/Auth';
 import Conversations from './containers/Conversations/Conversations';
 import EmailConfirmStatus from './components/EmailConfirmStatus/EmailConfirmStatus';
+import SentRequests from './containers/SentRequests/SentRequests';
 import SearchUsers from './containers/SearchUsers/SearchUsers';
 import allActions from './redux/actions/';
 
@@ -56,6 +57,7 @@ const App = () => {
 		routes = (
 			<Switch>
 				<Route path='/conversations' exact component={Conversations} />
+				<Route path='/sent-requests' exact component={SentRequests} />
 				<Route path='/search-users' exact component={SearchUsers} />
 				<Route path='/logout' exact component={LogoutPage} />
 				<Redirect to='/conversations' />
