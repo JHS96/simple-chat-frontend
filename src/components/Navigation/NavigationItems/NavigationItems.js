@@ -12,6 +12,9 @@ const NavigationItems = props => {
 			<NavItem link='sent-requests' exact={true}>
 				Sent Requests
 			</NavItem>
+			<NavItem link='received-requests' exact={true}>
+				Received Requests
+			</NavItem>
 			<NavItem link='search-users' exact={true}>
 				Search Users
 			</NavItem>
