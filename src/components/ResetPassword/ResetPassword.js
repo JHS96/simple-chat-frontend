@@ -102,7 +102,6 @@ const ResetPassword = props => {
 				</Modal>
 			)}
 			{error && <Backdrop visible={error} clicked={() => clearError()} />}
-			
 			<div className={styles.Logo}>
 				<Logo />
 			</div>
