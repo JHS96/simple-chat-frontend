@@ -154,6 +154,22 @@ const Auth = props => {
 		}
 	};
 
+	const requestResetPasswordHandler = async (event, email) => {
+		event.preventDefault();
+		const body = JSON.stringify({ email: email });
+		try {
+			const response = await sendRequest(
+				`${process.env.REACT_APP_BACKEND_URL}/account/request-reset-password`,
+				'POST',
+				body,
+				{ 'Content-Type': 'application/json' }
+			);
+			setServerResMsg(response.message);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	const ModalEl = () => {
 		if (error) {
 			return (
@@ -219,10 +235,7 @@ const Auth = props => {
 							: ['Btn-Disabled', 'Btn-Large']
 					}
 					value='Reset'
-					clicked={event => {
-						event.preventDefault();
-						console.log('reset');
-					}}
+					clicked={event => requestResetPasswordHandler(event, email)}
 				/>
 			);
 		} else if (mode === 'resend email') {

@@ -10,6 +10,7 @@ import EmailConfirmStatus from './components/EmailConfirmStatus/EmailConfirmStat
 import SentRequests from './containers/SentRequests/SentRequests';
 import ReceivedRequests from './containers/ReceivedRequests/ReceivedRequests';
 import SearchUsers from './containers/SearchUsers/SearchUsers';
+import ResetPassword from './components/ResetPassword/ResetPassword';
 import allActions from './redux/actions/';
 
 import './App.css';
@@ -49,6 +50,10 @@ const App = () => {
 			<Route
 				path='/auth/confirm/:userId/:token'
 				component={EmailConfirmStatus}
+			/>
+			<Route
+				path='/auth/reset-password/:userId/:token'
+				component={ResetPassword}
 			/>
 			<Redirect to='/auth' />
 		</Switch>
