@@ -7,7 +7,7 @@ import * as validators from '../../../util/validators';
 
 import styles from './AvatarElements.module.css';
 
-const SignUpElements = props => {
+const AvatarElements = props => {
 	const [avatarSelector, setAvatarSelector] = useState();
 	const [avatarPreview, setAvatarPreview] = useState();
 	const maxImgSize = 4 * 1024 * 1024;
@@ -98,4 +98,4 @@ const SignUpElements = props => {
 	);
 };
 
-export default SignUpElements;
+export default AvatarElements;
