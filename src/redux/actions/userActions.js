@@ -45,11 +45,19 @@ const checkAuthTimeout = expireTime => {
 	};
 };
 
+const updateAvatarUrl = url => {
+	return {
+		type: actionTypes.UPDATE_AVATAR_URL,
+		avatarUrl: url
+	};
+};
+
 const userAcions = {
 	loginStart,
 	login,
 	logout,
-	checkAuthTimeout
+	checkAuthTimeout,
+	updateAvatarUrl
 };
 
 export default userAcions;

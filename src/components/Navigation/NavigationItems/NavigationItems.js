@@ -18,6 +18,9 @@ const NavigationItems = props => {
 			<NavItem link='search-users' exact={true}>
 				Search Users
 			</NavItem>
+			<NavItem link='profile' exact={true}>
+				Profile
+			</NavItem>
 			<NavItem link='logout' exact={true}>
 				Log Out
 			</NavItem>

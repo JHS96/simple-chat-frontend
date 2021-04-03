@@ -9,6 +9,7 @@ import Conversations from './containers/Conversations/Conversations';
 import EmailConfirmStatus from './components/EmailConfirmStatus/EmailConfirmStatus';
 import SentRequests from './containers/SentRequests/SentRequests';
 import ReceivedRequests from './containers/ReceivedRequests/ReceivedRequests';
+import Profile from './containers/Profile/Profile';
 import SearchUsers from './containers/SearchUsers/SearchUsers';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import allActions from './redux/actions/';
@@ -66,6 +67,7 @@ const App = () => {
 				<Route path='/sent-requests' exact component={SentRequests} />
 				<Route path='/received-requests' exact component={ReceivedRequests} />
 				<Route path='/search-users' exact component={SearchUsers} />
+				<Route path='/profile' exact component={Profile} />
 				<Route path='/logout' exact component={LogoutPage} />
 				<Redirect to='/conversations' />
 			</Switch>

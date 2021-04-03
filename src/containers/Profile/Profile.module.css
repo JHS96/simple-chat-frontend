@@ -1,0 +1,32 @@
+.Heading {
+	padding: 0.5rem 0 0.5rem 0;
+}
+
+.Container {
+	width: 900px;
+	height: 80vh;
+	padding: 0.5rem;
+	margin: auto;
+	background: #fff;
+	border-radius: 5px;
+}
+
+.ItemHeading {
+	margin-bottom: 0.5rem;
+	color: var(--dark-color);
+}
+
+.AvatarElements {
+	width: 425px;
+	height: 325px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid var(--pale-grey);
+	border-radius: 3px;
+}
+
+.AvatarButtons {
+	display: flex;
+}

@@ -49,7 +49,7 @@ const AvatarElements = props => {
 	const clearAvatarHandler = event => {
 		event.preventDefault();
 		avatarSelector.value = '';
-		avatarPreview.src = defaultAvatar;
+		avatarPreview.src = props.customAvatarUrl || defaultAvatar;
 		props.setAvImg(undefined);
 		props.setAvImgValid(true);
 	};
@@ -57,12 +57,16 @@ const AvatarElements = props => {
 	return (
 		<React.Fragment>
 			<img
-				src={defaultAvatar}
+				src={props.customAvatarUrl ? props.customAvatarUrl : defaultAvatar}
 				id='avatar-preview'
 				alt='avatar-preview'
 				className={styles.AvatarPreview}
 			/>
-			<label id={styles.UploadImgLbl}>*Optional - Upload Profile Image</label>
+			<label id={styles.UploadImgLbl}>
+				{props.profilePage
+					? 'Select a new profile image below'
+					: '*Optional - Upload Profile Image'}
+			</label>
 			<div className={styles.Avatar} id='avatar'>
 				<input
 					className={
