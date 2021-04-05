@@ -43,6 +43,7 @@ input {
 .inputLabel {
 	width: 90%;
 	margin-bottom: -0.25rem;
+	margin-left: 0.55rem;
 	font-size: small;
 	color: var(--highlight-color);
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import AvatarElements from '../../components/FormElements/AvatarElements/AvatarElements';
+import PasswordElements from '../../components/FormElements/PasswordElement/PasswordElements';
 import Button from '../../components/UI/Button/Button';
 import Modal from '../../components/Modal/Modal';
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
@@ -19,6 +20,13 @@ const Profile = () => {
 	const [customAvatarUrl, setCustomAvatarUrl] = useState();
 	const { sendRequest, isLoading, error, clearError } = useHttpClient();
 	const [serverResMsg, setServerResMsg] = useState();
+
+	const [newPassword, setNewPassword] = useState('');
+	const [isPasswordAcceptableLength, setIsPasswordAcceptableLength] = useState(
+		'not set'
+	); // Initialize as 'not set' - which is truthy but not explicitly 'true' - to prevent inputError class from being added to input on initial page load
+	const passwordMinLength = 6;
+	const passwordMaxLength = 32;
 
 	useEffect(() => {
 		if (user.avatarUrl !== process.env.REACT_APP_DEFAULT_AVATAR) {
@@ -101,6 +109,28 @@ const Profile = () => {
 		}
 	};
 
+	const updatePasswordHandler = async e => {
+		e.preventDefault();
+		try {
+			const body = JSON.stringify({
+				userId: user.userId,
+				newPassword: newPassword
+			});
+			const response = await sendRequest(
+				`${process.env.REACT_APP_BACKEND_URL}/account/update-password`,
+				'POST',
+				body,
+				{
+					Authorization: `Bearer ${user.token}`,
+					'Content-Type': 'application/json'
+				}
+			);
+			setServerResMsg(response.message);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	const updateImageBtnClasses =
 		avatarImg && isAvatarImgValid
 			? ['Btn-Dark', 'Btn-Medium-Wide']
@@ -110,6 +140,12 @@ const Profile = () => {
 		customAvatarUrl && !avatarImg
 			? ['Btn-Danger', 'Btn-Medium-Wide']
 			: ['Btn-Danger', 'Btn-Medium-Wide', 'Btn-Disabled'];
+
+	const updatePasswordBtnClasses =
+		isPasswordAcceptableLength === true &&
+		newPassword.length >= passwordMinLength
+			? ['Btn-Dark', 'Btn-Wide']
+			: ['Btn-Dark', 'Btn-Wide', 'Btn-Disabled'];
 
 	return (
 		<React.Fragment>
@@ -141,6 +177,27 @@ const Profile = () => {
 								clicked={e => deleteAvatarHandler(e)}
 							/>
 						</div>
+					)}
+				</div>
+				<div className={styles.UserInputFields}>
+					<div className={styles.PasswordInput}>
+						<PasswordElements
+							setPw={setNewPassword}
+							setPwAcceptableLng={setIsPasswordAcceptableLength}
+							pwMinLng={passwordMinLength}
+							pwMaxLng={passwordMaxLength}
+							acceptableLng={isPasswordAcceptableLength}
+							val={newPassword}
+						/>
+					</div>
+					{isLoading ? (
+						<LoadingIndicator size='LoaderLarge' />
+					) : (
+						<Button
+							cssForButton={updatePasswordBtnClasses}
+							value='Update'
+							clicked={e => updatePasswordHandler(e)}
+						/>
 					)}
 				</div>
 			</div>

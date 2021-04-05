@@ -83,6 +83,13 @@ input[type='submit']:not(.Btn-Disabled) {
 	font-size: 1.5rem;
 }
 
+.Btn-Wide {
+	width: 90%;
+	padding: 0 0.75rem;
+	height: 2.25rem;
+	font-size: 1.5rem;
+}
+
 .Btn-Small {
 	width: 8%;
 }

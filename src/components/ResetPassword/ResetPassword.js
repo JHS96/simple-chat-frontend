@@ -65,7 +65,7 @@ const ResetPassword = props => {
 				newPassword: userInput
 			});
 			const response = await sendRequest(
-				`${process.env.REACT_APP_BACKEND_URL}/account/update-password`,
+				`${process.env.REACT_APP_BACKEND_URL}/account/reset-password`,
 				'POST',
 				body,
 				{ 'Content-Type': 'application/json' }
