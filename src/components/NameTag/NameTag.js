@@ -7,8 +7,8 @@ const NameTag = props => {
 	const menuItems = [
 		'Download Conversation',
 		'Delete Conversation',
-		'Block User',
-		'Unblock User'
+		'Delete All Messages',
+		'Delete All Messages Except Sarred'
 	];
 
 	const containerClasses = [styles.Container];

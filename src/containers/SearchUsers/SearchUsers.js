@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import Modal from '../../components/Modal/Modal';
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
@@ -7,7 +7,6 @@ import LoadingIndicator from '../../components/UI/LoadingIndicator/LoadingIndica
 import Button from '../../components/UI/Button/Button';
 import Card from '../../components/Card/Card';
 import { useHttpClient } from '../../custom_hooks/http-hook';
-import allActions from '../../redux/actions';
 import DefaultAvatar from '../../assets/images/default-avatar.png';
 import styles from './SearchUsers.module.css';
 
@@ -15,14 +14,8 @@ const SearchUsers = () => {
 	const [userInput, setUserInput] = useState('');
 	const [results, setResults] = useState([]);
 	const [reqSentMsg, setReqSentMsg] = useState();
-	const dispatch = useDispatch();
 	const user = useSelector(state => state.user);
 	const { sendRequest, isLoading, error, clearError } = useHttpClient();
-
-	useEffect(
-		() => dispatch(allActions.conversationActions.resetConversationState()),
-		[dispatch]
-	);
 
 	const searchHandler = async e => {
 		const body = JSON.stringify({ searchTerm: userInput });

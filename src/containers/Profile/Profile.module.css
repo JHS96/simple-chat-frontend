@@ -4,7 +4,6 @@
 
 .Container {
 	width: 900px;
-	height: 80vh;
 	padding: 0.5rem;
 	margin: auto;
 	display: flex;
@@ -13,7 +12,7 @@
 	border-radius: 5px;
 }
 
-.ItemHeading {
+.AvatarSectionHeading {
 	margin-bottom: 0.5rem;
 	color: var(--dark-color);
 }
@@ -45,9 +44,45 @@
 	text-align: left;
 }
 
-.PasswordInput {
-	margin-top: 0.45rem;
+.UserInputSectionHeading {
+	grid-column: 1 / span 2;
+}
+
+.PasswordInput,
+.UserNameInput {
+	margin-top: 0.25rem;
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
+}
+
+.UpdateNameBtn,
+.UpdatePasswordBtn,
+.UpdatePasswordBtn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.DeleteAccountHeading {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	grid-column: 1 / span 2;
+	text-transform: uppercase;
+	color: var(--error-highlight-color);
+}
+
+.ConfirmContainer {
+	padding-top: 0.5rem;
+	padding-left: 1rem;
+}
+
+.ConfirmCheckbox {
+	width: 5%
+}
+
+.CheckboxLabel {
+	font-size: small;
 }

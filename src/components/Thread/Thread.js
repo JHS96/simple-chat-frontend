@@ -36,12 +36,8 @@ const Thread = props => {
 						<SpeechBubble
 							key={msg._id}
 							msgId={msg._id}
-							bubbleAlignRight={
-								msg.senderName === props.userName ? true : false
-							}
-							senderName={
-								msg.senderName === props.userName ? 'Me' : msg.senderName
-							}
+							bubbleAlignRight={msg.senderId === props.userId ? true : false}
+							senderName={msg.senderId === props.userId ? 'Me' : msg.senderName}
 							date={new Date(msg.createdAt).toLocaleDateString()}
 							time={new Date(msg.createdAt).toLocaleTimeString()}
 							timeInMilliSeconds={new Date(msg.createdAt).getTime()}

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import AvatarElements from '../../components/FormElements/AvatarElements/AvatarElements';
 import PasswordElements from '../../components/FormElements/PasswordElement/PasswordElements';
+import UsernameElements from '../../components/FormElements/UsernameElements/UsernameElements';
 import Button from '../../components/UI/Button/Button';
 import Modal from '../../components/Modal/Modal';
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
@@ -21,12 +22,20 @@ const Profile = () => {
 	const { sendRequest, isLoading, error, clearError } = useHttpClient();
 	const [serverResMsg, setServerResMsg] = useState();
 
+	const [newName, setNewName] = useState('');
+	const [isUserNameValid, setIsUserNameValid] = useState('not set'); // Initialize as 'not set' - which is truthy but not explicitly 'true' - to prevent inputError class from being added to input on initial page load
+	const userNameMinLength = 3;
+	const userNameMaxLength = 15;
+
 	const [newPassword, setNewPassword] = useState('');
 	const [isPasswordAcceptableLength, setIsPasswordAcceptableLength] = useState(
 		'not set'
 	); // Initialize as 'not set' - which is truthy but not explicitly 'true' - to prevent inputError class from being added to input on initial page load
 	const passwordMinLength = 6;
 	const passwordMaxLength = 32;
+
+	const [isConfirmChecked, setIsConfirmChecked] = useState(false);
+	const [isUnderstandChecked, setIsUnderstandChecked] = useState(false);
 
 	useEffect(() => {
 		if (user.avatarUrl !== process.env.REACT_APP_DEFAULT_AVATAR) {
@@ -109,13 +118,31 @@ const Profile = () => {
 		}
 	};
 
+	const updateUserNameHandler = async e => {
+		e.preventDefault();
+		try {
+			const body = JSON.stringify({ newUserName: newName });
+			const response = await sendRequest(
+				`${process.env.REACT_APP_BACKEND_URL}/account/update-username`,
+				'POST',
+				body,
+				{
+					Authorization: `Bearer ${user.token}`,
+					'Content-Type': 'application/json'
+				}
+			);
+			setServerResMsg(response.message);
+			setNewName('');
+			dispatch(allActions.userActions.updateUserName(newName));
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	const updatePasswordHandler = async e => {
 		e.preventDefault();
 		try {
-			const body = JSON.stringify({
-				userId: user.userId,
-				newPassword: newPassword
-			});
+			const body = JSON.stringify({ newPassword: newPassword });
 			const response = await sendRequest(
 				`${process.env.REACT_APP_BACKEND_URL}/account/update-password`,
 				'POST',
@@ -125,7 +152,27 @@ const Profile = () => {
 					'Content-Type': 'application/json'
 				}
 			);
+			setNewPassword('');
 			setServerResMsg(response.message);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const deleteAccountHandler = async e => {
+		e.preventDefault();
+		// If either the confirm or understand chcekbox is not checked, NO NOT proceed with deletion.
+		if (!isConfirmChecked || !isUnderstandChecked) {
+			return;
+		}
+		try {
+			await sendRequest(
+				`${process.env.REACT_APP_BACKEND_URL}/account/delete-account`,
+				'DELETE',
+				null,
+				{ Authorization: `Bearer ${user.token}` }
+			);
+			dispatch(allActions.userActions.logout());
 		} catch (err) {
 			console.log(err);
 		}
@@ -141,19 +188,31 @@ const Profile = () => {
 			? ['Btn-Danger', 'Btn-Medium-Wide']
 			: ['Btn-Danger', 'Btn-Medium-Wide', 'Btn-Disabled'];
 
+	const updateUserNameBtnClasses =
+		isUserNameValid === true && newName.length >= 3
+			? ['Btn-Dark', 'Btn-Wide']
+			: ['Btn-Dark', 'Btn-Wide', 'Btn-Disabled'];
+
 	const updatePasswordBtnClasses =
 		isPasswordAcceptableLength === true &&
 		newPassword.length >= passwordMinLength
 			? ['Btn-Dark', 'Btn-Wide']
 			: ['Btn-Dark', 'Btn-Wide', 'Btn-Disabled'];
 
+	const deleteAccountBtnClasses =
+		isConfirmChecked && isUnderstandChecked
+			? ['Btn-Danger', 'Btn-Wide']
+			: ['Btn-Danger', 'Btn-Wide', 'Btn-Disabled'];
+
 	return (
 		<React.Fragment>
 			<ModalEl />
-			<h1 className={styles.Heading}>Profile</h1>
+			<h1 className={styles.Heading}>{`Profile - ${user.userName}`}</h1>
 			<div className={styles.Container}>
 				<div className={styles.AvatarElements}>
-					<h3 className={styles.ItemHeading}>Your Current Profile Image</h3>
+					<h3 className={styles.AvatarSectionHeading}>
+						Your Current Profile Image
+					</h3>
 					<AvatarElements
 						setAvImg={setAvatarImg}
 						setAvImgValid={setIsAvatarImgValid}
@@ -179,7 +238,30 @@ const Profile = () => {
 						</div>
 					)}
 				</div>
+
 				<div className={styles.UserInputFields}>
+					<div className={styles.UserNameInput}>
+						<UsernameElements
+							nameMinLng={userNameMinLength}
+							nameMaxLng={userNameMaxLength}
+							setName={setNewName}
+							name={newName}
+							setNameValid={setIsUserNameValid}
+							nameValid={isUserNameValid}
+						/>
+					</div>
+					<div className={styles.UpdateNameBtn}>
+						{isLoading ? (
+							<LoadingIndicator size='LoaderLarge' />
+						) : (
+							<Button
+								cssForButton={updateUserNameBtnClasses}
+								value='Update'
+								clicked={e => updateUserNameHandler(e)}
+							/>
+						)}
+					</div>
+
 					<div className={styles.PasswordInput}>
 						<PasswordElements
 							setPw={setNewPassword}
@@ -190,15 +272,57 @@ const Profile = () => {
 							val={newPassword}
 						/>
 					</div>
-					{isLoading ? (
-						<LoadingIndicator size='LoaderLarge' />
-					) : (
-						<Button
-							cssForButton={updatePasswordBtnClasses}
-							value='Update'
-							clicked={e => updatePasswordHandler(e)}
+					<div className={styles.UpdatePasswordBtn}>
+						{isLoading ? (
+							<LoadingIndicator size='LoaderLarge' />
+						) : (
+							<Button
+								cssForButton={updatePasswordBtnClasses}
+								value='Update'
+								clicked={e => updatePasswordHandler(e)}
+							/>
+						)}
+					</div>
+
+					<h2 className={styles.DeleteAccountHeading}>Delete Account</h2>
+					<div className={styles.ConfirmContainer}>
+						<input
+							type='checkbox'
+							name='confirm-delete-checkbox'
+							className={styles.ConfirmCheckbox}
+							onChange={() => setIsConfirmChecked(() => !isConfirmChecked)}
 						/>
-					)}
+						<label
+							htmlFor='confirm-delete-checkbox'
+							className={styles.CheckboxLabel}>
+							Confirm account deletion.
+						</label>
+						<br />
+						<input
+							type='checkbox'
+							name='confirm-understand-checkbox'
+							className={styles.ConfirmCheckbox}
+							onChange={() =>
+								setIsUnderstandChecked(() => !isUnderstandChecked)
+							}
+						/>
+						<label
+							htmlFor='confirm-understand-checkbox'
+							className={styles.CheckboxLabel}>
+							I understand that deletion can't be undone.
+						</label>
+					</div>
+					<div className={styles.UpdatePasswordBtn}>
+						{isLoading ? (
+							<LoadingIndicator size='LoaderLarge' />
+						) : (
+							<Button
+								cssForButton={deleteAccountBtnClasses}
+								value='Delete'
+								clicked={e => deleteAccountHandler(e)}
+							/>
+						)}
+					</div>
 				</div>
 			</div>
 		</React.Fragment>

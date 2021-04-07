@@ -7,8 +7,10 @@
 }
 
 .ImageContainer {
+  height: 200px;
   display: flex;
   justify-content: center;
+  align-items: center;
   background: #fff;
   border-radius: 5px 5px 0 0;
 }

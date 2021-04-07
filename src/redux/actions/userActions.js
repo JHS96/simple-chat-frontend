@@ -52,12 +52,20 @@ const updateAvatarUrl = url => {
 	};
 };
 
+const updateUserName = name => {
+	return {
+		type: actionTypes.UPDATE_USERNAME,
+		newUserName: name
+	};
+};
+
 const userAcions = {
 	loginStart,
 	login,
 	logout,
 	checkAuthTimeout,
-	updateAvatarUrl
+	updateAvatarUrl,
+	updateUserName
 };
 
 export default userAcions;

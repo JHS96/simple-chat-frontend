@@ -39,6 +39,11 @@ const user = (state = initialState, action) => {
 				...state,
 				avatarUrl: action.avatarUrl
 			};
+		case actionTypes.UPDATE_USERNAME:
+			return {
+				...state,
+				userName: action.newUserName
+			};
 		default:
 			return state;
 	}

@@ -75,6 +75,12 @@ const Conversations = () => {
 		return () => window.removeEventListener('click', closeContextMenu);
 	});
 
+	// When this page initially loads, there should be no info in conversations state
+	useEffect(
+		() => dispatch(allActions.conversationActions.resetConversationState()),
+		[dispatch]
+	);
+
 	// If an openContextMenuId is set then a context menu is open. If the next detected
 	// click event.target.id doesn't match the openContextMenuId, then let the component
 	// know that the menu should be closed.
@@ -278,7 +284,8 @@ const Conversations = () => {
 							msgReceiverId={conversations.msgReceiverId}
 							receiverConversationId={conversations.receiverConversationId}
 							userInput={userInput}
-							userName={user.userName}
+							// userName={user.userName}
+							userId={user.userId}
 							conversationSelected={chatSelected}
 							contactName={conversations.contactName}
 							deleteMsgHandler={deleteMsgHandler}
