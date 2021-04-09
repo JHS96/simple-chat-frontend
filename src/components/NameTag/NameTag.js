@@ -3,12 +3,17 @@ import CustomLink from '../UI/CustomLink/CustomLink';
 import styles from './NameTag.module.css';
 
 const NameTag = props => {
-	// Temporary menuItems array for testing only.
 	const menuItems = [
-		'Download Conversation',
-		'Delete Conversation',
-		'Delete All Messages',
-		'Delete All Messages Except Sarred'
+		{
+			text: 'Download Conversation',
+			handler: props.downloadConversationHandler
+		},
+		{ text: 'Delete Conversation', handler: props.deleteConversationHandler },
+		{ text: 'Delete All Messages', handler: props.deleteAllMsgHandler },
+		{
+			text: 'Delete All Messages Except Sarred',
+			handler: props.deleteAllButStarredHandler
+		}
 	];
 
 	const containerClasses = [styles.Container];
@@ -35,9 +40,10 @@ const NameTag = props => {
 				menuStyle='Dots'
 				menuItems={menuItems.map(item => (
 					<CustomLink
-						key={props.name + item} // TODO Create better keys when menuItems are implemented
+						key={item.text + props.nameTagId}
 						cssForCustLnk={['Text-Dark', 'Text-Medium']}
-						text={item}
+						text={item.text}
+						clicked={()=>item.handler(props.nameTagId)}
 					/>
 				))}
 			/>

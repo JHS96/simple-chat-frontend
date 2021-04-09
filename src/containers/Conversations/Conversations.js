@@ -219,7 +219,7 @@ const Conversations = () => {
 	const starUnstarHandler = async (conversationId, messageId) => {
 		const body = JSON.stringify({ messageId: messageId });
 		try {
-			sendRequest(
+			await sendRequest(
 				`${process.env.REACT_APP_BACKEND_URL}/messages/toggle-star`,
 				'POST',
 				body,
@@ -232,6 +232,40 @@ const Conversations = () => {
 			console.log(err);
 		}
 		dispatch(allActions.conversationActions.starUnstarMessage(messageId));
+	};
+
+	// Won't be using the custom http hook here as the information being returned won't be json,
+	// but will be binary data instead, which needs to be turned into a blob, which can then be
+	// used to create a temporary url to download the .pdf file.
+	const downloadConversationHandler = async conversationId => {
+		try {
+			const response = await fetch(
+				`${process.env.REACT_APP_BACKEND_URL}/messages/download-conversation/${conversationId}`,
+				{
+					method: 'GET',
+					headers: { Authorization: `Bearer ${user.token}` }
+				}
+			);
+			const blob = await response.blob();
+			const url = window.URL.createObjectURL(
+				new Blob([blob], { type: 'application/pdf' })
+			);
+			window.open(url);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const deleteConversationHandler = async conversationId => {
+		console.log('Deleting conversation' + conversationId);
+	};
+
+	const deleteAllMsgHandler = async conversationId => {
+		console.log('Deleting all messages' + conversationId);
+	};
+
+	const deleteAllButStarredHandler = async conversationId => {
+		console.log('Deleting all messages except starred' + conversationId);
 	};
 
 	return (
@@ -268,6 +302,10 @@ const Conversations = () => {
 							setOpenContextMenuId={setOpenContextMenuId}
 							shouldCloseMenu={shouldCloseMenu}
 							setShouldCloseMenu={setShouldCloseMenu}
+							downloadConversationHandler={downloadConversationHandler}
+							deleteConversationHandler={deleteConversationHandler}
+							deleteAllMsgHandler={deleteAllMsgHandler}
+							deleteAllButStarredHandler={deleteAllButStarredHandler}
 						/>
 					))}
 				</div>
@@ -284,7 +322,6 @@ const Conversations = () => {
 							msgReceiverId={conversations.msgReceiverId}
 							receiverConversationId={conversations.receiverConversationId}
 							userInput={userInput}
-							// userName={user.userName}
 							userId={user.userId}
 							conversationSelected={chatSelected}
 							contactName={conversations.contactName}
