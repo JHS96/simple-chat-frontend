@@ -257,15 +257,63 @@ const Conversations = () => {
 	};
 
 	const deleteConversationHandler = async conversationId => {
-		console.log('Deleting conversation' + conversationId);
+		const body = JSON.stringify({ conversationId: conversationId });
+		try {
+			const response = await sendRequest(
+				`${process.env.REACT_APP_BACKEND_URL}/messages/delete-conversation`,
+				'DELETE',
+				body,
+				{
+					Authorization: `Bearer ${user.token}`,
+					'Content-Type': 'application/json'
+				}
+			);
+			dispatch(
+				allActions.conversationActions.setConversations(
+					response.updatedConversations
+				)
+			);
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	const deleteAllMsgHandler = async conversationId => {
-		console.log('Deleting all messages' + conversationId);
+		const body = JSON.stringify({ conversationId: conversationId });
+		try {
+			await sendRequest(
+				`${process.env.REACT_APP_BACKEND_URL}/messages/clear-messages`,
+				'DELETE',
+				body,
+				{
+					Authorization: `Bearer ${user.token}`,
+					'Content-Type': 'application/json'
+				}
+			);
+			dispatch(allActions.conversationActions.updateThread([]));
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	const deleteAllButStarredHandler = async conversationId => {
-		console.log('Deleting all messages except starred' + conversationId);
+		const body = JSON.stringify({ conversationId: conversationId });
+		try {
+			const response = await sendRequest(
+				`${process.env.REACT_APP_BACKEND_URL}/messages/delete-all-except-starred`,
+				'DELETE',
+				body,
+				{
+					Authorization: `Bearer ${user.token}`,
+					'Content-Type': 'application/json'
+				}
+			);
+			dispatch(
+				allActions.conversationActions.updateThread(response.updatedThread)
+			);
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	return (
