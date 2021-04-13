@@ -1,0 +1,38 @@
+.SideDrawer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+  transform: translateX(-100vw);
+  opacity: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: var(--dark-color);
+	z-index: 5;
+  transition: all 400ms;
+}
+
+.SideDrawerVisible {
+  transform: translateX(0);
+  opacity: 0.95;
+  transition: all 400ms;
+}
+
+.Close {
+	padding: 0.1rem;
+	position: absolute;
+	top: 2rem;
+	right: 2rem;
+	font-size: 0.75rem;
+	color: #fff;
+}
+
+.Close:hover {
+	cursor: pointer;
+}
+
+.MenuItems {
+	color: #fff;
+}
