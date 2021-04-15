@@ -133,6 +133,13 @@
 	top: -5px;
 }
 
+@media (max-width: 350px) {
+	.Tooltip .Content-Wide--Arrow-Top-Center {
+	width: 250px;
+	margin-left: -125px; /* negative half of the width above */
+}
+}
+
 
 /**********************/
 /* Tooltip Visibility */

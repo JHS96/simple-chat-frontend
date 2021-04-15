@@ -23,6 +23,7 @@ const Conversations = () => {
 	const chatId = useRef();
 	const [openContextMenuId, setOpenContextMenuId] = useState();
 	const [shouldCloseMenu, setShouldCloseMenu] = useState(false);
+	const [isMobileNameTagAreaOpen, setIsMobileNameTagAreaOpen] = useState(true);
 
 	// Below state and helper function are only a utilitarian to prevent
 	// the LoadingIndicator from being displayed every time a message is sent.
@@ -316,6 +317,13 @@ const Conversations = () => {
 		}
 	};
 
+	const nameTagAreaStyles = [styles.NameTagArea];
+	const messageAreaStyles = [styles.MsgArea];
+	if (isMobileNameTagAreaOpen) {
+		nameTagAreaStyles.push(styles.MobileNameTagAreaOpen);
+		messageAreaStyles.push(styles.MsgAreaAdjusted);
+	}
+
 	return (
 		<div className={styles.MainArea}>
 			{error ? (
@@ -333,7 +341,7 @@ const Conversations = () => {
 			<div className={styles.Devider}></div>
 
 			<div className={styles.Container} id='container'>
-				<div className={styles.NameTagArea}>
+				<div className={nameTagAreaStyles.join(' ')}>
 					{conversations.conversations.map(chat => (
 						<NameTag
 							key={chat._id}
@@ -346,7 +354,9 @@ const Conversations = () => {
 									? DefaultAvatar
 									: chat.contactAvatarUrl
 							}
-							clicked={() => conversationHandler(chat._id)}
+							clicked={() => {
+								conversationHandler(chat._id);
+							}}
 							setOpenContextMenuId={setOpenContextMenuId}
 							shouldCloseMenu={shouldCloseMenu}
 							setShouldCloseMenu={setShouldCloseMenu}
@@ -357,7 +367,14 @@ const Conversations = () => {
 						/>
 					))}
 				</div>
-				<div className={styles.MsgArea} id='msgArea'>
+
+				<div
+					className={styles.NameTagToggler}
+					onClick={() => setIsMobileNameTagAreaOpen(!isMobileNameTagAreaOpen)}>
+					||
+				</div>
+
+				<div className={messageAreaStyles.join(' ')} id='msgArea'>
 					{displayLoadingIndicator() ? (
 						<LoadingIndicator size='LoaderLarge' />
 					) : (

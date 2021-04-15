@@ -23,18 +23,59 @@
 }
 
 .NameTagArea {
-	width: 270px;
+	width: 0px; /* Set to 0 initially. Width will be added when MobileNameTagAreaOpen class is added programatically */
 	background: var(--primary-color);
-	overflow-y: scroll;
+	overflow-y: auto;
+	transition: all 400ms;
+}
+
+.MobileNameTagAreaOpen {
+	width: 250px;
+}
+
+.NameTagToggler {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: var(--secondary-color);
+	width: 0;
+	cursor: pointer;
+	transition: all 400ms;
 }
 
 .MsgArea {
 	width: 900px;
 	padding: 0.5rem;
 	background: #fff;
-	overflow-y: scroll;
+	overflow-y: auto;
+	transition: all 400ms;
 }
 
 .BottomSpacer {
 	height: 7rem;
+}
+
+@media (max-width: 1130px) {
+	.MsgAreaAdjusted {
+		width: calc(100% - 200px);
+	}
+
+	.MobileNameTagAreaOpen {
+		width: 200px;
+	}
+}
+
+@media (max-width: 540px) {
+	.MsgAreaAdjusted {
+		width: calc(100% - 175px);
+	}
+
+	.NameTagToggler {
+		width: 1rem;
+		padding: 0.1rem;
+	}
+
+	.MobileNameTagAreaOpen {
+		width: 160px;
+	}
 }

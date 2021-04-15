@@ -36,3 +36,43 @@
 .Name {
 	font-size: 1.25rem;
 }
+
+@media (max-width: 1130px) {
+	.Container {
+		width: 200px;
+	}
+
+	.Tag {
+		width: 160px;
+		height: 3rem;
+	}
+
+	.Avatar {
+		height: 35px;
+		width: 35px;
+	}
+
+	.Name {
+		font-size: 1.25rem;
+	}
+}
+
+@media (max-width: 540px) {
+	.Container {
+		width: 160px;
+	}
+
+	.Tag {
+		width: 120px;
+		height: 2.5rem;
+	}
+
+	.Avatar {
+		height: 30px;
+		width: 30px;
+	}
+
+	.Name {
+		font-size: 0.75rem;
+	}
+}
