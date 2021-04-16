@@ -101,3 +101,12 @@ input[type='submit']:not(.Btn-Disabled) {
 .Text-Bold {
 	font-weight: bold;
 }
+
+@media (max-width: 540px) {
+	.Btn-Medium {
+		width: 20%;
+		height: 1.7rem;
+		margin-left: 0;
+		font-size: 1rem;
+	}
+}

@@ -51,10 +51,6 @@
 		height: 35px;
 		width: 35px;
 	}
-
-	.Name {
-		font-size: 1.25rem;
-	}
 }
 
 @media (max-width: 540px) {

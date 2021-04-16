@@ -1,14 +1,14 @@
 .AlignLeft {
-  display: flex;
-  align-items: center;
-  margin-top: 1.5rem;
+	display: flex;
+	align-items: center;
+	margin-top: 1.5rem;
 }
 
 .AlignRight {
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  margin-top: 1.5rem;
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+	margin-top: 1.5rem;
 }
 
 .BubbleLeft {
@@ -16,7 +16,7 @@
 	align-items: center;
 	position: relative;
 	background: var(--highlight-color);
-  color: #fff;
+	color: #fff;
 	max-width: 750px;
 	padding: 0.4rem;
 	margin-left: 0.75rem;
@@ -34,14 +34,14 @@
 }
 
 .BubbleLeft::before {
-  border-width: 6px;
-  margin-top: -6px;
+	border-width: 6px;
+	margin-top: -6px;
 }
 
 .BubbleLeft::after {
-  border-right-color: var(--highlight-color);
-  border-width: 7px;
-  margin-top: -7px;
+	border-right-color: var(--highlight-color);
+	border-width: 7px;
+	margin-top: -7px;
 }
 
 .BubbleRight {
@@ -49,7 +49,7 @@
 	align-items: center;
 	position: relative;
 	background: var(--dark-color);
-  color: #fff;
+	color: #fff;
 	max-width: 750px;
 	padding: 0.4rem;
 	margin-right: 0.75rem;
@@ -67,14 +67,14 @@
 }
 
 .BubbleRight::before {
-  border-width: 6px;
-  margin-top: -6px;
+	border-width: 6px;
+	margin-top: -6px;
 }
 
 .BubbleRight::after {
-  border-left-color: var(--dark-color);
-  border-width: 7px;
-  margin-top: -7px;
+	border-left-color: var(--dark-color);
+	border-width: 7px;
+	margin-top: -7px;
 }
 
 .MsgDetails {
@@ -97,4 +97,26 @@
 .TimeDetails {
 	font-size: 0.6rem;
 	color: var(--dark-color);
+}
+
+@media (max-width: 540px) {
+	.BubbleLeft,
+	.BubbleRight {
+		padding: 2px 0.4rem;
+		font-size: 0.8rem;
+	}
+
+	.MsgDetails {
+		min-width: 45px;
+		overflow: hidden;
+	}
+
+	.Name {
+		font-size: 0.5rem;
+	}
+
+	.TimeDetails {
+		font-size: 0.5rem;
+		color: var(--dark-color);
+	}
 }

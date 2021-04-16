@@ -35,17 +35,17 @@ const Conversations = () => {
 		return false;
 	};
 
-	// Automatically scroll to bottom of conversation thread after set time (500ms in this case);
-	const scrollTimer = setTimeout(() => {
-		const msgAreaDiv = document.getElementById('msgArea');
-		if (msgAreaDiv) {
-			msgAreaDiv.scrollTop = msgAreaDiv.scrollHeight;
-		}
-	}, 250);
-
 	useEffect(() => {
+		// Automatically scroll to bottom of conversation thread after set time (250ms in this case),
+		// but only when the number of messages in the thread changes.
+		const scrollTimer = setTimeout(() => {
+			const msgAreaDiv = document.getElementById('msgArea');
+			if (msgAreaDiv) {
+				msgAreaDiv.scrollTop = msgAreaDiv.scrollHeight;
+			}
+		}, 250);
 		return () => clearTimeout(scrollTimer);
-	}, [scrollTimer]);
+	}, [conversations.thread.length]);
 
 	useEffect(() => {
 		const getConversations = async () => {

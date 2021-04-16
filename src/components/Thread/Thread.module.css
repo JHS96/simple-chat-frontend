@@ -15,7 +15,6 @@ h5 {
 	display: flex;
 	align-items: center;
 	min-width: 60%;
-	max-width: 60%;
 	height: 3rem;
 	background: var(--pale-grey);
 }
@@ -32,4 +31,21 @@ h5 {
 
 .Star::after {
 	content: '\2605';
+}
+
+@media (max-width: 540px) {
+	h3 {
+		font-size: 1rem;
+	}
+
+	.MsgInputForm {
+		min-width: 80%;
+		right: 0;
+		left: 0;
+		height: 2.1rem;
+	}
+
+	.MsgInput {
+		font-size: 0.95rem;
+	}
 }

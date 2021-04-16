@@ -66,6 +66,10 @@
 }
 
 @media (max-width: 540px) {
+	.Header {
+		font-size: 1.5rem;
+	}
+
 	.MsgAreaAdjusted {
 		width: calc(100% - 175px);
 	}
@@ -73,6 +77,7 @@
 	.NameTagToggler {
 		width: 1rem;
 		padding: 0.1rem;
+		padding-bottom: 15%;
 	}
 
 	.MobileNameTagAreaOpen {
