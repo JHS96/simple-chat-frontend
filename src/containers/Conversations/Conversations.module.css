@@ -55,6 +55,12 @@
 	height: 7rem;
 }
 
+@media (min-height: 768px) {
+	.Container {
+		height: 92vh;
+	}
+}
+
 @media (max-width: 1130px) {
 	.MsgAreaAdjusted {
 		width: calc(100% - 200px);

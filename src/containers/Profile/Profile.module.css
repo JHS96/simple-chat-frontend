@@ -3,7 +3,7 @@
 }
 
 .Container {
-	width: 900px;
+	max-width: 900px;
 	padding: 0.5rem;
 	margin: auto;
 	display: flex;
@@ -20,6 +20,7 @@
 .AvatarElements {
 	width: 430px;
 	height: 325px;
+	margin-bottom: 1rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -36,6 +37,7 @@
 	width: 430px;
 	height: 325px;
 	padding: 0.5rem;
+	margin-bottom: 1rem;
 	display: grid;
 	grid-template-columns: 3fr 1fr;
 	grid-template-rows: 1fr 1fr 1fr 1fr;
@@ -85,4 +87,31 @@
 
 .CheckboxLabel {
 	font-size: small;
+}
+
+@media (max-width: 730px) {
+	.Container {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+@media (max-width: 460px) {
+	.AvatarElements,
+	.UserInputFields {
+		width: 100%;
+		height: 350px;
+	}
+
+	.AvatarButtons {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+	}
+
+	.ConfirmCheckbox {
+		width: 1rem;
+	}
 }

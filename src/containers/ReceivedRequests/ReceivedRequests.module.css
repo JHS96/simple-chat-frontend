@@ -1,5 +1,5 @@
 .Container {
-	width: 900px;
+	max-width: 900px;
 	min-height: 83vh;
 	margin: auto;
 	background: #fff;
@@ -27,4 +27,12 @@
 
 .RejectLink {
   margin-bottom: -0.2rem;
+}
+
+@media (max-width: 540px) {
+	.ReceivedRequests {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
 }
