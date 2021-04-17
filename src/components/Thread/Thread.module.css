@@ -33,13 +33,19 @@ h5 {
 	content: '\2605';
 }
 
+@media (max-width: 650px) {
+	.MsgInputForm {
+		min-width: 80%;
+	}
+}
+
 @media (max-width: 540px) {
 	h3 {
 		font-size: 1rem;
 	}
 
 	.MsgInputForm {
-		min-width: 80%;
+		/* min-width: 80%; */
 		right: 0;
 		left: 0;
 		height: 2.1rem;

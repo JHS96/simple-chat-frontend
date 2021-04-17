@@ -1,6 +1,7 @@
 .ToolbarNavItem,
 .SideDrawerNavItem {
 	display: flex;
+	text-align: center;
 	color: #fff;
 }
 
@@ -22,4 +23,10 @@
 	color: var(--highlight-color);
 	background: var(--secondary-color);
 	border-top: 5px solid var(--highlight-color);
+}
+
+@media (max-width: 630px) {
+	.ToolbarNavItem a {
+		font-size: 1rem;
+	}
 }

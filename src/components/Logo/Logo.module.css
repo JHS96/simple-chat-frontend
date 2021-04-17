@@ -1,7 +1,13 @@
 .Logo {
-  height: 100%;
+	height: 100%;
 }
 
 .Logo img {
 	height: 100%;
+}
+
+@media (max-width: 870px) {
+	.Logo {
+		margin-right: 0.8rem;
+	}
 }
