@@ -1,5 +1,5 @@
 .Backdrop {
-	height: 100vh;
+	height: 110vh;
 	width: 100vw;
 	position: absolute;
 	top: 0;
@@ -8,6 +8,7 @@
 	background: Var(--dark-color);
 	opacity: 0.5;
 	z-index: 2;
+	overflow: none;
 }
 
 .Visible {

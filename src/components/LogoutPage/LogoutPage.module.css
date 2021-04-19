@@ -1,0 +1,21 @@
+.Container {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.Logo {
+	height: 20vh;
+	margin-top: 20vh;
+	margin-bottom: 2rem;
+}
+
+.Heading {
+	margin-bottom: 2rem;
+	font-size: 2.25rem;
+}
+
+.LoginLink {
+	font-size: 1.75rem;
+}

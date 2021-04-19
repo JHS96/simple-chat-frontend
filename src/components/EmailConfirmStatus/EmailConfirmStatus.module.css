@@ -1,24 +1,42 @@
-.ErrorMsg {
-  font-weight: bold;
-  font-size: 1.5rem;
-  color: red;
+.Container {
+	height: 100vh;
+  padding: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
-.Suggestion {
-  color: var(--highlight-color);
-  font-weight: bold;
+.Logo {
+	height: 20vh;
+	margin-top: 12vh;
+	margin-bottom: 2rem;
 }
 
-.OrderedList {
-  margin: 1rem;
-  text-align: left;
-  font-size: 1.1rem;
+.Heading {
+	margin-bottom: 2rem;
+	font-size: 2.25rem;
 }
 
 .PageContent {
-  position: absolute;
-  top: 10%;
-  width: 100%;
-  margin: auto;
-  text-align: center;
+	position: absolute;
+	width: 100%;
+	margin: auto;
+	text-align: center;
+}
+
+.ErrorMsg {
+	font-weight: bold;
+	font-size: 1.5rem;
+	color: red;
+}
+
+.Suggestion {
+	color: var(--highlight-color);
+	font-weight: bold;
+}
+
+.OrderedList {
+	margin: 1rem;
+	text-align: left;
+	font-size: 1.1rem;
 }

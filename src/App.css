@@ -30,7 +30,12 @@ input {
 	border-radius: 3px;
 	outline: none;
 	font-size: 20px;
+	color: var(--primary-color);
 	background: var(--pale-grey);
+}
+
+h1 {
+	color: var(--primary-color);
 }
 
 .inputError {

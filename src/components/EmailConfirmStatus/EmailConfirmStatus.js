@@ -40,15 +40,17 @@ const EmailConfirmStatus = props => {
 			);
 		else
 			return (
-				<React.Fragment>
-					<Logo />
-					<h1>{response}</h1>
+				<div className={styles.Container}>
+					<div className={styles.Logo}>
+						<Logo />
+					</div>
+					<h1 className={styles.Heading}>{response}</h1>
 					<CustomLink
 						cssForCustLnk={['Text-Blue', 'Text-Bold', 'Text-Extra-Large']}
 						text='Log In'
 						clicked={() => props.history.push('/auth')}
 					/>
-				</React.Fragment>
+				</div>
 			);
 	};
 

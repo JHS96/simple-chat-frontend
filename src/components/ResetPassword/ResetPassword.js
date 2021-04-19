@@ -102,54 +102,56 @@ const ResetPassword = props => {
 				</Modal>
 			)}
 			{error && <Backdrop visible={error} clicked={() => clearError()} />}
-			<div className={styles.Logo}>
-				<Logo />
-			</div>
 			<div className={styles.Container}>
-				<h1>New Password</h1>
-				<hr />
-				{!serverResMsg && (
-					<form>
-						<label className={styles.InputLabel}>
-							{visibleLabel ? 'Password' : null}
-						</label>
-						<input
-							className={!pwIsValidLength ? 'inputError' : null}
-							type='password'
-							placeholder='Enter your new password here...'
-							value={userInput}
-							onChange={e => userInputHandler(e)}
-						/>
-						<div id={styles.Tooltip}>
-							<Tooltip
-								cssForContent={[
-									'Content-Wide--Arrow-Top-Center',
-									'Text-Centered',
-									'Text-Small',
-									'Text-White'
-								]}
-								visible={!pwIsValidLength}
-								text='Password must be at least 6 characters, and no more than 32 characters long.'
+				<div className={styles.Logo}>
+					<Logo />
+				</div>
+				<div className={styles.FormGroup}>
+					<h1>New Password</h1>
+					<hr />
+					{!serverResMsg && (
+						<form>
+							<label className={styles.InputLabel}>
+								{visibleLabel ? 'Password' : null}
+							</label>
+							<input
+								className={!pwIsValidLength ? 'inputError' : null}
+								type='password'
+								placeholder='Enter your new password here...'
+								value={userInput}
+								onChange={e => userInputHandler(e)}
 							/>
-						</div>
-						{buttonEl}
-					</form>
-				)}
-				{serverResMsg && (
-					<React.Fragment>
-						<p>{serverResMsg}</p>
-						<CustomLink
-							cssForCustLnk={[
-								'Text-Centered',
-								'Text-Extra-Large',
-								'Text-Blue',
-								'Text-Bold'
-							]}
-							text={'Log In'}
-							clicked={() => props.history.push('/auth')}
-						/>
-					</React.Fragment>
-				)}
+							<div id={styles.Tooltip}>
+								<Tooltip
+									cssForContent={[
+										'Content-Wide--Arrow-Top-Center',
+										'Text-Centered',
+										'Text-Small',
+										'Text-White'
+									]}
+									visible={!pwIsValidLength}
+									text='Password must be at least 6 characters, and no more than 32 characters long.'
+								/>
+							</div>
+							<div className={styles.ButtonElement}>{buttonEl}</div>
+						</form>
+					)}
+					{serverResMsg && (
+						<React.Fragment>
+							<p>{serverResMsg}</p>
+							<CustomLink
+								cssForCustLnk={[
+									'Text-Centered',
+									'Text-Extra-Large',
+									'Text-Blue',
+									'Text-Bold'
+								]}
+								text={'Log In'}
+								clicked={() => props.history.push('/auth')}
+							/>
+						</React.Fragment>
+					)}
+				</div>
 			</div>
 		</React.Fragment>
 	);
