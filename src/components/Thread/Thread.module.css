@@ -21,6 +21,7 @@ h5 {
 
 .MsgInput {
 	background: #fff;
+	color: var(--primary-color);
 }
 
 .Star {

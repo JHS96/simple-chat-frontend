@@ -24,6 +24,7 @@ const Conversations = () => {
 	const [openContextMenuId, setOpenContextMenuId] = useState();
 	const [shouldCloseMenu, setShouldCloseMenu] = useState(false);
 	const [isMobileNameTagAreaOpen, setIsMobileNameTagAreaOpen] = useState(true);
+	const [latestMsgId, setLatestMsgId] = useState();
 
 	// Below state and helper function are only a utilitarian to prevent
 	// the LoadingIndicator from being displayed every time a message is sent.
@@ -37,7 +38,7 @@ const Conversations = () => {
 
 	useEffect(() => {
 		// Automatically scroll to bottom of conversation thread after set time (250ms in this case),
-		// but only when the number of messages in the thread changes.
+		// but only when the user sends a message OR a new message is received.
 		const scrollTimer = setTimeout(() => {
 			const msgAreaDiv = document.getElementById('msgArea');
 			if (msgAreaDiv) {
@@ -45,7 +46,7 @@ const Conversations = () => {
 			}
 		}, 250);
 		return () => clearTimeout(scrollTimer);
-	}, [conversations.thread.length]);
+	}, [latestMsgId]);
 
 	useEffect(() => {
 		const getConversations = async () => {
@@ -111,6 +112,7 @@ const Conversations = () => {
 					data.message.belongsToConversationId === chatId.current
 				) {
 					dispatch(allActions.conversationActions.addMsgToThread(data.message));
+					setLatestMsgId(data.message._id);
 				}
 			});
 			socket.on('alter-message', data => {
@@ -140,6 +142,7 @@ const Conversations = () => {
 					response.conversation.thread
 				)
 			);
+			setLatestMsgId(response.conversation.thread[response.conversation.thread.length - 1]._id);
 		} catch (err) {
 			console.log(err);
 		}
@@ -169,6 +172,7 @@ const Conversations = () => {
 			dispatch(
 				allActions.conversationActions.addMsgToThread(response.senderMsgCopy)
 			);
+			setLatestMsgId(response.senderMsgCopy._id);
 		} catch (err) {
 			console.log(err);
 		}
