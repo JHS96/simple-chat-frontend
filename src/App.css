@@ -34,10 +34,6 @@ input {
 	background: var(--pale-grey);
 }
 
-h1 {
-	color: var(--primary-color);
-}
-
 .inputError {
 	border: 1px solid var(--error-highlight-color);
 	border-radius: 3px;
