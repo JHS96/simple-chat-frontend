@@ -19,7 +19,7 @@ const EmailConfirmStatus = props => {
 		const confirmEmail = async () => {
 			try {
 				const response = await sendRequest(
-					`http://localhost:8080/account/confirm-email/${userId}/${confirmationToken}`
+					`${process.env.REACT_APP_BACKEND_URL}/account/confirm-email/${userId}/${confirmationToken}`
 				);
 				setResponse(response.message);
 			} catch (err) {
