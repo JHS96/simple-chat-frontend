@@ -142,7 +142,10 @@ const Conversations = () => {
 					response.conversation.thread
 				)
 			);
-			setLatestMsgId(response.conversation.thread[response.conversation.thread.length - 1]._id);
+			setLatestMsgId(
+				response.conversation.thread[response.conversation.thread.length - 1]
+					._id
+			);
 		} catch (err) {
 			console.log(err);
 		}
@@ -346,6 +349,13 @@ const Conversations = () => {
 
 			<div className={styles.Container} id='container'>
 				<div className={nameTagAreaStyles.join(' ')}>
+
+					{conversations.conversations.length === 0 ? (
+						<p className={styles.Hint}>
+							HINT: Visit the "Search Users" page to find people to chat with.
+						</p>
+					) : null}
+
 					{conversations.conversations.map(chat => (
 						<NameTag
 							key={chat._id}

@@ -38,6 +38,11 @@ const NavigationItems = props => {
 			<NavItem link='profile' exact={true} navItemStyle={props.navItemStyle}>
 				Profile
 			</NavItem>
+
+			<a href='mailto:support@simplechat.online' className={styles.Mailto}>
+				Support
+			</a>
+
 			<NavItem link='logout' exact={true} navItemStyle={props.navItemStyle}>
 				Log Out
 			</NavItem>
