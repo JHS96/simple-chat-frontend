@@ -6,7 +6,7 @@ The backend/server-side code for this app can be found here: [Backend](https://g
 
 ## To get this frontend app to work:
 
-1. ### 'npm install'
+1. ### `npm install`
 
 in the project directory in order to install all necessary depenencies.
 
