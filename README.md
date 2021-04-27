@@ -1,6 +1,27 @@
-# Getting Started with Create React App
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+This is the frontend code for a simple chat application. A live version of this app can be viewed at [Simplechat.online](https://simplechat.online)
+
+The backend/server-side code for this app can be found here: [Backend](https://github.com/JHS96/simple-chat-backend)
+
+## To get this frontend app to work:
+
+1. ### 'npm install'
+
+in the project directory in order to install all necessary depenencies.
+
+2. You will also need to create a .env file in the project root directory. This .env file needs to have the following information:
+
+```
+REACT_APP_BACKEND_URL=<YOUR_BACKEND_SERVER_URL>
+REACT_APP_DEFAULT_AVATAR=<YOUR_DEFAULT_AVATAR_URL>
+```
+
+If you are running your backend server on localhost, you can use the localhost address as your REACT_APP_BACEND_URL, but remember to change it to the real backend url before building the app for deployment.
+
+For the default avatar url, you need to provide the url of wherever you are storing your default avatar image. I used AWS S3 to store images, as you will see if you take a look at the backend code mentioned above.
+
+3. Obviously, you will need to have a backend server set up, such as the one mentioned above, otherwise this frontend app will not work as expected.
 
 ## Available Scripts
 
