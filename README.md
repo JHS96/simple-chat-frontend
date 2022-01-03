@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-This is the frontend code for a simple chat application. A live version of this app can be viewed at [Simplechat.online](https://simplechat.online)
+This is the frontend code for a simple chat application. A live version of this app can be viewed at [Simplechat.online](https://simple-chat-d4c1e.web.app)
 
 The backend/server-side code for this app can be found here: [Backend](https://github.com/JHS96/simple-chat-backend)
 
